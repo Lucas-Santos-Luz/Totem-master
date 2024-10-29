@@ -140,60 +140,56 @@
     </div>
 
 
-    <div class="container-pesquisa">
-
-        <div class="dropdown-container">
+<div class="container-pesquisa">
+    <div class="dropdown-container">
         <h1 id="cursoh1">Cursos<span id="spanfilter" class="material-symbols-outlined">filter_alt</span></h1>
         <div class="dropdown-content">
-            <form action="" class="formDropdown">
-            <label>
-                Gratuitos
-                <input type="checkbox" name="Gratuitos" value="1">
-
-            </label>
-            <label>
-                 Pago
-                <input type="checkbox" name="Pago" value="2">
-
-            </label>
-            <label>
-                Presencial
-                <input type="checkbox" name="Presencial" value="3">
-
-            </label>
-            <label>
-                Aprendizagem Continuada
-                <input type="checkbox" name="Pago" value="5">
-
-            </label>
-            <label>
-                Aprendizagem Industrial
-                <input type="checkbox" name="Pago" value="6">
-
-            </label>
-            <label>
-                Técnicos
-                    <input id="checkbox" type="checkbox" name="Pago" value="7">
-                   
-            </label>
-                <button type="reset" class="limparFiltro">
-                    Limpar filtros
-                </button>
-
-                </form>
+            <form action="{% url 'cursos' %}" class="formDropdown" method="GET" id="filterForm">
+                <label>
+                    Gratuitos
+                    <input type="checkbox" name="gratuitos" value="1" onchange="submitFilterForm()">
+                </label>
+                <label>
+                    Pago
+                    <input type="checkbox" name="pago" value="1" onchange="submitFilterForm()">
+                </label>
+                <label>
+                    Presencial
+                    <input type="checkbox" name="presencial" value="1" onchange="submitFilterForm()">
+                </label>
+                <label>
+                    Aprendizagem Continuada
+                    <input type="checkbox" name="aprendizagem_continuada" value="1" onchange="submitFilterForm()">
+                </label>
+                <label>
+                    Aprendizagem Industrial
+                    <input type="checkbox" name="aprendizagem_industrial" value="1" onchange="submitFilterForm()">
+                </label>
+                <label>
+                    Técnicos
+                    <input type="checkbox" name="tecnicos" value="1" onchange="submitFilterForm()">
+                </label>
+                <button type="reset" class="limparFiltro" onclick="resetFilterForm()">Limpar filtros</button>
+            </form>
         </div>
     </div>
 
-   <form method="GET" action="{% url 'cursos' %}" class="formPesquisa">
-
+    <form method="GET" action="{% url 'cursos' %}" class="formPesquisa">
         <input type="text" name="search" placeholder="Pesquisar curso" value="{{ query }}">
-        <button type="submit" class="search-btn"><span class="material-symbols-outlined">
-            search
-</span></button>
-
+        <button type="submit" class="search-btn"><span class="material-symbols-outlined">search</span></button>
     </form>
+</div>
 
-     </div>
+<script>
+    function submitFilterForm() {
+        document.getElementById("filterForm").submit();
+    }
+
+    function resetFilterForm() {
+        // Aguarda o reset e então envia o formulário para aplicar a limpeza dos filtros
+        setTimeout(() => document.getElementById("filterForm").submit(), 100);
+    }
+</script>
 
 
 <div class="maincursos">

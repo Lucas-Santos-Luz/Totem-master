@@ -93,7 +93,7 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
 
    <div class="botoesContainer">
     <div class="Ricardito">
-        <a href="{{ curso.link_interesses }}" > Tenho Interesse! </a>
+    <a href="https://www.sp.senai.br/" onclick="registrarInteresse({{ curso.id }}); return false;">Tenho Interesse!</a>
     </div>
     <div class="Ermano">
         <a href="{{ curso.link_informacoes }}">Mais Informações</a>
@@ -103,30 +103,20 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
 </div>
 
     <script>
-       const links = document.querySelectorAll('.sessoes a');
-const contents = document.querySelectorAll('#conteudoSessao p');
-
-links.forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Remove a classe "active" de todos os links
-        links.forEach(l => l.classList.remove('active'));
-
-        // Adiciona a classe "active" ao link clicado
-        this.classList.add('active');
-
-        // Esconde todo o conteúdo
-        contents.forEach(content => content.style.display = 'none');
-
-        // Mostra o conteúdo correspondente ao link clicado
-        const targetContent = document.querySelector(`.${this.dataset.content}`);
-        if (targetContent) {
-            targetContent.style.display = 'block';
-        }
-    });
-});
-    </script>
+    function registrarInteresse(cursoId) {
+        fetch(`/registrar_interesse/${cursoId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    // Redireciona para o link após o registro do interesse
+                    window.location.href = 'https://www.sp.senai.br/';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao registrar interesse:', error);
+            });
+    }
+</script>
 
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">

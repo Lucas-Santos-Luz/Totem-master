@@ -23,5 +23,20 @@ class Curso(models.Model):
     video = models.URLField(blank=True, null=True)
     foto = models.ImageField(upload_to='images/', blank=True, null=True)
 
+    gratuitos = models.BooleanField(default=False)
+    pago = models.BooleanField(default=False)
+    presencial = models.BooleanField(default=False)
+    aprendizagem_continuada = models.BooleanField(default=False)
+    aprendizagem_industrial = models.BooleanField(default=False)
+    tecnicos = models.BooleanField(default=False)
+
     def __str__(self):
         return self.nome
+
+class InteresseCurso(models.Model):
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)  # Data e hora do clique
+    num_cliques = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"Interesse no curso {self.curso.nome} - {self.num_cliques} cliques"

@@ -1,9 +1,15 @@
 from .models import Feedback
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .models import Curso
+from .models import Curso, InteresseCurso
 from .forms import CursoForm
 from django.urls import reverse
+from django.db.models import Q
+from django.db.models import Sum
+from django.shortcuts import get_object_or_404
+import json
+from django.http import HttpResponse
+from django.http import JsonResponse
 
 
 
@@ -99,20 +105,34 @@ def cursos(request):
     query = request.GET.get('search', '')
     cursos = Curso.objects.all()
 
+    # Recupera os parâmetros das tags de filtro, apenas se os checkboxes estiverem marcados
+    gratuitos = request.GET.get('gratuitos')
+    pago = request.GET.get('pago')
+    presencial = request.GET.get('presencial')
+    aprendizagem_continuada = request.GET.get('aprendizagem_continuada')
+    aprendizagem_industrial = request.GET.get('aprendizagem_industrial')
+    tecnicos = request.GET.get('tecnicos')
+
+    # Aplicando o filtro de busca por nome e descrição
     if query:
-        cursos = cursos.filter(nome__icontains=query) | cursos.filter(descricao__icontains=query)
+        cursos = cursos.filter(Q(nome__icontains=query) | Q(descricao__icontains=query))
+
+    # Filtros de tags baseados nos checkboxes selecionados
+    if gratuitos:
+        cursos = cursos.filter(gratuitos=True)
+    if pago:
+        cursos = cursos.filter(pago=True)
+    if presencial:
+        cursos = cursos.filter(presencial=True)
+    if aprendizagem_continuada:
+        cursos = cursos.filter(aprendizagem_continuada=True)
+    if aprendizagem_industrial:
+        cursos = cursos.filter(aprendizagem_industrial=True)
+    if tecnicos:
+        cursos = cursos.filter(tecnicos=True)
 
     return render(request, 'totem/cursos.html', {'cursos': cursos, 'query': query})
 
-def detalhesCursos(request, curso_id):
-    curso = Curso.objects.get(id=curso_id)
-    return render(request, 'totem/detalhesCursos.html', {'curso': curso})
-
-
-def grafico_feedbacks(request):
-    feedbacks = Feedback.objects.all()  # Obtém todos os feedbacks do banco de dados
-    ratings = [feedback.rating for feedback in feedbacks]  # Extrai apenas os ratings
-    return render(request, 'totem/adm/relatorioGeral.html', {'ratings': ratings})
 
 def editarCursos(request, id):
     curso = Curso.objects.get(id=id)
@@ -141,3 +161,40 @@ def telaeditCursos(request):
         cursos = cursos.filter(nome__icontains=query) | cursos.filter(descricao__icontains=query)
 
     return render(request, 'totem/adm/telaeditCursos.html', {'cursos': cursos, 'query': query})
+
+def registrar_interesse(request, curso_id):
+    curso = get_object_or_404(Curso, id=curso_id)
+
+    interesse, created = InteresseCurso.objects.get_or_create(curso=curso)
+
+    # Incrementar o número de cliques
+    interesse.num_cliques += 1
+    interesse.save()
+
+    return JsonResponse({'status': 'sucesso', 'num_cliques': interesse.num_cliques})
+
+def detalhesCursos(request, curso_id):
+    curso = Curso.objects.get(id=curso_id)
+
+    # Obter o número de cliques para este curso
+    interesse = InteresseCurso.objects.filter(curso=curso).first()
+    num_cliques = interesse.num_cliques if interesse else 0
+
+    return render(request, 'totem/detalhesCursos.html', {
+        'curso': curso,
+        'num_cliques': num_cliques
+    })
+
+def relatorioInteresses(request):
+    cursos = Curso.objects.annotate(num_cliques_total=Sum('interessecurso__num_cliques'))
+
+    # Dados para o gráfico
+    labels = [curso.nome for curso in cursos]
+    data = [curso.num_cliques_total or 0 for curso in cursos]
+
+    return render(request, 'totem/adm/relatorioInteresses.html', {
+        'cursos': cursos,
+        'labels': labels,
+        'data': data
+    })
+
