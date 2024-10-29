@@ -1,11 +1,11 @@
-from django.shortcuts import render
-
-# Create your views here.
-
-from django.shortcuts import render, redirect
-from django.shortcuts import render, redirect
 from .models import Feedback
 from django.contrib import messages
+from django.shortcuts import render, redirect
+from .models import Curso
+from .forms import CursoForm
+from django.urls import reverse
+
+
 
 def telaMenu(request):
     return render(request, 'totem/menus/telaMenu.html')
@@ -34,7 +34,7 @@ def relatorioGeral(request):
     return render(request, 'totem/adm/relatorioGeral.html')
 
 def sobreEscola(request):
-    feedbacks = Feedback.objects.all()
+    feedbacks = Feedback.objects.all().order_by('-rating')
     return render(request, 'totem/sobreEscola.html', {'feedbacks': feedbacks})
 
 
@@ -53,8 +53,7 @@ def trilhaAutomob(request):
 def segInfra(request):
     return render(request, 'totem/trilhas/trilhasTI/segInfra.html')
 
-def editarCursos(request):
-    return render(request, 'totem/adm/editcurso.html')
+
 
 def trilhaNuvem(request):
     return render(request, 'totem/trilhas/trilhasTI/trilhaNuvem.html')
@@ -82,10 +81,6 @@ def feedback_form(request):
     return render(request, 'totem/feedback.html')
 
 
-from django.shortcuts import render, redirect
-from .models import Curso
-from .forms import CursoForm
-from django.urls import reverse
 
 
 def adicionar_curso(request):
@@ -93,7 +88,7 @@ def adicionar_curso(request):
         form = CursoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('cursos')
+            return redirect('telaeditCursos')
     else:
         print("GET request, criando formulário vazio")  # Adicione isso para depurar
         form = CursoForm()
@@ -108,16 +103,41 @@ def cursos(request):
         cursos = cursos.filter(nome__icontains=query) | cursos.filter(descricao__icontains=query)
 
     return render(request, 'totem/cursos.html', {'cursos': cursos, 'query': query})
+
 def detalhesCursos(request, curso_id):
     curso = Curso.objects.get(id=curso_id)
     return render(request, 'totem/detalhesCursos.html', {'curso': curso})
-
-def lista_feedbacks(request):
-    feedbacks = Feedback.objects.all()  # Busca todos os feedbacks no banco
-    return render(request, 'totem/sobreEscola.html', {'feedback': feedbacks})
 
 
 def grafico_feedbacks(request):
     feedbacks = Feedback.objects.all()  # Obtém todos os feedbacks do banco de dados
     ratings = [feedback.rating for feedback in feedbacks]  # Extrai apenas os ratings
     return render(request, 'totem/adm/relatorioGeral.html', {'ratings': ratings})
+
+def editarCursos(request, id):
+    curso = Curso.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = CursoForm(request.POST, request.FILES, instance=curso)
+        if form.is_valid():
+            form.save()
+            return redirect('telaeditCursos')
+    else:
+        form = CursoForm(instance=curso)
+
+    return render(request, 'totem/adm/editarCurso.html', {'form': form, 'id': id})
+
+
+def deletarCurso(request, id):
+    curso = Curso.objects.get(id=id)
+    curso.delete()
+    return redirect('telaeditCursos')
+
+def telaeditCursos(request):
+    query = request.GET.get('search', '')
+    cursos = Curso.objects.all()
+
+    if query:
+        cursos = cursos.filter(nome__icontains=query) | cursos.filter(descricao__icontains=query)
+
+    return render(request, 'totem/adm/telaeditCursos.html', {'cursos': cursos, 'query': query})

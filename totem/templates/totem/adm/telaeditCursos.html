@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>curso</title>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'totem/modelo.css' %}">
+<script src="{% static 'totem/script.js' %}" type="text/javascript"></script>
+<script src="{% static 'totem/js.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+let idleTime = 0;
+const idleTimeLimit = 300;
+
+function resetIdleTime() {
+idleTime = 0;
+}
+
+function checkIdleTime() {
+idleTime++;
+if (idleTime >= idleTimeLimit) {
+window.location.href = "{% url 'telaSuspensa' %}";
+}
+}
+
+setInterval(checkIdleTime, 1000);
+
+document.body.addEventListener("mousemove", resetIdleTime);
+document.body.addEventListener("keypress", resetIdleTime);
+document.body.addEventListener("click", resetIdleTime);
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+<span id="topo"></span>
+<!-- Navegação -->
+<header>
+<!-- Logo do site -->
+<a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+
+<!-- Link para logout -->
+<div class="logout">
+<a onclick="window.history.back()">Voltar</a>
+<a href="{% url 'telaMenu' %}">Home</a>
+</div>
+
+
+
+<nav class="menu">
+<input id="menu-open" name="menu-open" class="menu-open" href="#" type="checkbox"/>
+<label for="menu-open" class="menu-open-button">
+<span class="lines line-1"></span>
+<span class="lines line-2"></span>
+<span class="lines line-3"></span>
+</label>
+
+<a class="menu-item blue" href="#"><p></p></a>
+<a class="menu-item green" href="#"><p></p></a>
+<a class="menu-item red" href="#"><p></p></a>
+<a class="menu-item purple" href="#"><p>Cursos</p></a>
+<a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
+<a class="menu-item lightblue" href="{% url 'calendario' %}"><p><span class="material-symbols-outlined">calendar_month</span></p></a>
+</nav>
+</header>
+
+    <div class="container-pesquisa">
+
+   <form method="GET" action="{% url 'telaeditCursos' %}" class="formPesquisa">
+
+        <input type="text" name="search" placeholder="Pesquisar curso" value="{{ query }}">
+        <button type="submit" class="search-btn"><span class="material-symbols-outlined">
+            search
+</span></button>
+
+    </form>
+
+     </div>
+
+
+<div class="maincursos">
+
+
+{% for curso in cursos %}
+<div class="card2">
+<div class="card-image">
+{% if curso.foto %}
+<img src="{{ curso.foto.url }}" alt="{{ curso.nome }}">
+{% endif %}
+</div>
+<div class="card-content">
+<div class="category">{{ curso.nome }}</div>
+<div class="heading">
+{{ curso.descricao|truncatewords:20 }}
+<div class="author"><a href="{% url 'editarCursos' curso.id %}">Editar</a>
+</div>
+<div class="author"><a href="{% url 'deletarCurso' curso.id %}" onclick="return confirm('Deseja realmente deletar esse curso?')">Deletar</a>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+
+</div>
+
+
+
+
+<div class="btn-scroll-top">
+<a href="#topo" class="scrollTop">
+<img src="{% static 'totem/images/up.png' %}" alt="">
+</a>
+</div>
+
+<footer>
+<img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+</body>
+</html>
