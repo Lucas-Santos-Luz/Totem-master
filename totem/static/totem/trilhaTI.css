@@ -521,3 +521,6 @@ margin-left: 2.5vw;
   transform: rotate(38deg);
 }
 
+.miguel {
+    color: var(--vermelho);
+}
