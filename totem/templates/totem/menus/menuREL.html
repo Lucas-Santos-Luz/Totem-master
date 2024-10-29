@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu Relatório</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/menu.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+     <!-- Navegação -->
+    <header>
+        <!-- Logo do site -->
+        <a href="#" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+
+        <!-- Link para logout -->
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+        </div>
+
+    </header>
+    <div class="button-container">
+        <a href="{% url 'relatorioGeral' %}" class="btn">Geral</a>
+        <a href="{% url 'relatorioInteresses' %}" class="btn">Interesses</a>
+        <a href="{% url 'relatorioFeedback' %}" class="btn">Feedback</a>
+    </div>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+
+</body>
+</html>

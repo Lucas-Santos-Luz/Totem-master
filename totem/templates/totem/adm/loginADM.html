@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login adm</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/loginADM.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script>
+        function validarLogin() {
+            const usuario = document.getElementById('usuario').value;
+            const senha = document.getElementById('senha').value;
+
+            // Defina seu usuário e senha padrão aqui
+            const usuarioPadrao = 'admin';
+            const senhaPadrao = '123';
+
+            if (usuario === usuarioPadrao && senha === senhaPadrao) {
+                // Redireciona para a página se o login for bem-sucedido
+                window.location.href = "{% url 'menuADM' %}";
+            } else {
+                alert('Usuário ou senha inválidos!');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">
+            <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
+        </a>
+
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+        </div>
+    </header>
+
+    <div class="login">
+        <div class="usuario">
+            <img src='{% static 'totem/images/user.png' %}'>
+        </div>
+
+        <div class="inputs">
+            <input type="text" id="usuario" placeholder="Usuário">
+            <br>
+            <input type="password" id="senha" placeholder="Senha">
+            <div class="enviar">
+                <a href="#" onclick="validarLogin()">Enviar</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+    </footer>
+
+</body>
+</html>

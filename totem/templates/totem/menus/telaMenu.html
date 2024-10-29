@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/menu.css' %}">
+    <script type="text/javascript">
+    let idleTime = 0;
+    const idleTimeLimit = 300;
+
+    function resetIdleTime() {
+        idleTime = 0;
+    }
+
+    function checkIdleTime() {
+        idleTime++;
+        if (idleTime >= idleTimeLimit) {
+            window.location.href = "{% url 'telaSuspensa' %}";
+        }
+    }
+
+    setInterval(checkIdleTime, 1000);
+
+    document.body.addEventListener("mousemove", resetIdleTime);
+    document.body.addEventListener("keypress", resetIdleTime);
+    document.body.addEventListener("click", resetIdleTime);
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+     <!-- Navegação -->
+    <header>
+        <!-- Logo do site -->
+        <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+
+        <!-- Link para logout -->
+        <div class="logout">
+            <a href="{% url 'telaSuspensa' %}">Voltar</a>
+        </div>
+
+<nav class="menu">
+  <input
+    id="menu-open"
+    name="menu-open"
+    class="menu-open"
+    href="#"
+    type="checkbox"
+  />
+  <label for="menu-open" class="menu-open-button">
+    <span class="lines line-1"></span>
+    <span class="lines line-2"></span>
+    <span class="lines line-3"></span>
+  </label>
+
+  <a class="menu-item blue" href="#"><p></p>  </a>
+  <a class="menu-item green" href="#"><p></p></a>
+  <a class="menu-item red" href="#"><p></p></a>
+  <a class="menu-item purple" href="{% url 'cursos' %}"> <p>Cursos</p></a>
+  <a class="menu-item orange" href="{% url 'sobreEscola' %}"> <p>Escola</p></a>
+  <a class="menu-item lightblue" href="{% url 'calendario' %}"> <p><span class="material-symbols-outlined">
+calendar_month
+</span></p> </a>
+</nav>
+    </header>
+    <div class="button-container">
+        <a href="{% url 'cursos' %}" class="button" >Cursos</a>
+        <a href="{% url 'sobreEscola' %}" class="button">Escola</a>
+        <a href="{% url 'calendario' %}" class="button">Calendário</a>
+    </div>
+     
+     <div class="feedback">
+    <p>Envie seu
+         <a href="{% url 'feedback' %}">     Feedback</a></p>
+     </div>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+
+</body>
+</html>

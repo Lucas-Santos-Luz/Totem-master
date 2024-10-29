@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modelo</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/inspetorQuali.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo"></a>
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+        </div>
+        <nav class="menu">
+            <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" />
+            <label for="menu-open" class="menu-open-button">
+                <span class="lines line-1"></span>
+                <span class="lines line-2"></span>
+                <span class="lines line-3"></span>
+            </label>
+            <a class="menu-item blue" href="#"><p></p></a>
+            <a class="menu-item green" href="#"><p></p></a>
+            <a class="menu-item red" href="#"><p></p></a>
+            <a class="menu-item purple" href="#"><p>Cursos</p></a>
+            <a class="menu-item orange" href="#"><p>Escola</p></a>
+            <a class="menu-item lightblue" href="#"><p><span class="material-symbols-outlined">calendar_month</span></p></a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="image-container">
+            <img src="{% static 'totem/images/inspetorQuali.png' %}" alt="Smart.EDUC Logo">
+        </div>
+
+        <div class="grid">
+            <div class="sessao1">
+                <div class="card" data-title="Ajustador Mecânico">
+                    <img src="{% static 'totem/images/torneiromecanico.png' %}" alt="Ajustador Mecânico 100H">
+                    <div class="card-content">
+                        <h2 class="card-title">Ajustador Mecânico <span class="red-text">100H</span></h2>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Fresador Mecânico">
+                    <img src="{% static 'totem/images/torneiromecanico.png' %}" alt="Fresador Mecânico 100H">
+                    <div class="card-content">
+                        <h2 class="card-title">Fresador Mecânico <span class="red-text">100H</span></h2>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Torneiro Mecânico">
+                    <img src="static/totem/images/torneiromecanico.png" alt="Torneiro Mecânico 100H">
+                    <div class="card-content">
+                        <h2 class="card-title">Torneiro Mecânico <span class="red-text">100H</span></h2>
+                    </div>
+                </div>
+
+                <div class="omega" data-title="Solidworks CAD 2D / 3D Inventor">
+                    <img src="static/totem/images/solidworks.png" alt="Solidworks CAD 2D / 3D Inventor">
+                    <div class="card-content">
+                        <h2 class="card-title">Solidworks CAD 2D / 3D Inventor</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="banner">
+                <img src="static/totem/images/semaproveitamento.png" alt="Smart.EDUC Logo">
+            </div>
+
+            <div class="sessao2">
+                <div class="card" data-title="Ajustador Mecânico 180H">
+                    <img src="{% static 'totem/images/torneiromecanico2.png' %}" alt="Ajustador Mecânico 180H">
+                    <div class="card-content">
+                        <h2 class="card-title">Ajustador Mecânico <span class="red-text">180H</span></h2>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Torneiro Mecânico 180H">
+                    <img src="static/totem/images/torneiromecanico2.png" alt="Torneiro Mecânico 180H">
+                    <div class="card-content">
+                        <h2 class="card-title">Torneiro Mecânico <span class="red-text">180H</span></h2>
+                    </div>
+                </div>
+
+                <div class="card" data-title="Fresador Mecânico 180H">
+                    <img src="{% static 'totem/images/torneiromecanico2.png' %}" alt="Fresador Mecânico 180H">
+                    <div class="card-content">
+                        <h2 class="card-title">Fresador Mecânico <span class="red-text">180H</span></h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="banner2">
+                <img src="static/totem/images/programacaoEtralala.png" alt="Smart.EDUC Logo">
+            </div>
+
+            <div class="banner3">
+                <img src="static/totem/images/usinagemCNC.png" alt="Smart.EDUC Logo">
+            </div>
+
+            <div class="success-message" style="display: block;">
+                <img src="static/totem/images/sucessemensage.png" alt="Medal of Honor">
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+        const successMessage = document.querySelector('.success-message');
+
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.style.transform = 'scale(1.1)');
+
+                setTimeout(() => {
+                    cards.forEach(c => c.style.transform = 'scale(1)');
+                }, 200);
+            });
+        });
+
+        setTimeout(() => {
+            successMessage.style.display = 'block';
+        }, 5000);
+    </script>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+</body>
+</html>

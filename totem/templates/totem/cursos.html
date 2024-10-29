@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>curso</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/modelo.css' %}">
+    <script src="{% static 'totem/script.js' %}" type="text/javascript"></script>
+    <script src="{% static 'totem/js.js' %}" type="text/javascript"></script>
+    <script type="text/javascript">
+    let idleTime = 0;
+    const idleTimeLimit = 300;
+
+    function resetIdleTime() {
+        idleTime = 0;
+    }
+
+    function checkIdleTime() {
+        idleTime++;
+        if (idleTime >= idleTimeLimit) {
+            window.location.href = "{% url 'telaSuspensa' %}";
+        }
+    }
+
+    setInterval(checkIdleTime, 1000);
+
+    document.body.addEventListener("mousemove", resetIdleTime);
+    document.body.addEventListener("keypress", resetIdleTime);
+    document.body.addEventListener("click", resetIdleTime);
+</script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+<span id="topo"></span>
+     <!-- Navegação -->
+    <header>
+        <!-- Logo do site -->
+        <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+
+        <!-- Link para logout -->
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Home</a>
+        </div>
+
+
+
+        <nav class="menu">
+            <input id="menu-open" name="menu-open" class="menu-open" href="#" type="checkbox"/>
+            <label for="menu-open" class="menu-open-button">
+                <span class="lines line-1"></span>
+                <span class="lines line-2"></span>
+                <span class="lines line-3"></span>
+            </label>
+
+            <a class="menu-item blue" href="#"><p></p></a>
+            <a class="menu-item green" href="#"><p></p></a>
+            <a class="menu-item red" href="#"><p></p></a>
+            <a class="menu-item purple" href="#"><p>Cursos</p></a>
+            <a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
+            <a class="menu-item lightblue" href="{% url 'calendario' %}"><p><span class="material-symbols-outlined">calendar_month</span></p></a>
+        </nav>
+    </header>
+
+
+
+
+    <!-- Carrosel -->
+ <div class="container">
+      <input type="radio" name="slider" id="item-1" checked />
+      <input type="radio" name="slider" id="item-2" />
+      <input type="radio" name="slider" id="item-3" />
+      <input type="radio" name="slider" id="item-4" />
+      <div class="cards">
+        <label class="card" for="item-1" id="song-1">
+          <img
+             src="{% static 'totem/images/carrosselIMG/cardCarrossel1.png' %}"
+            alt="song"
+          />
+        </label>
+        <label class="card" for="item-2" id="song-2">
+          <img
+            src="{% static 'totem/images/carrosselIMG/eletricistaInstala.png' %}"
+            alt="song"
+          />
+        </label>
+        <label class="card" for="item-3" id="song-3">
+
+          <img
+            src="{% static 'totem/images/carrosselIMG/inspetorQuali (1).png' %}"
+            alt="song"
+          />
+        </label>
+          <label class="card" for="item-4" id="song-4">
+                <img src="{% static 'totem/images/carrosselIMG/trilhaAutomob.png' %}" alt="song" />
+          </label>
+      </div>
+      <div class="player">
+        <div class="upper-part">
+          <div class="play-icon">
+            <svg
+              width="20"
+              height="20"
+              fill="#2992dc"
+              stroke="#2992dc"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              class="feather feather-play"
+              viewBox="0 0 24 24"
+            >
+              <defs />
+              <path d="M5 3l14 9-14 9V3z" />
+            </svg>
+          </div>
+
+          <div class="info-area" id="test">
+
+            <label class="song-info" id="song-info-1">
+              <div class="title">Trilha de TI <a id="btnsaibamais" class="btnsaibacar" href="{% url 'trilhaTI' %}">Saiba Mais</a></div>
+            </label>
+
+            <label class="song-info" id="song-info-2">
+              <div class="title">Trilha de Eletricista Industrial <a id="btnsaibamais" class="btnsaibacar" href="{% url 'trilhaEletrica' %}">Saiba Mais</a></div>
+            </label>
+
+            <label class="song-info" id="song-info-3">
+               <div class="title">Trilha de Inspetor de Qualidade<a id="btnsaibamais" class="btnsaibacar" href="{% url 'trilhaInspetorQuali' %}">Saiba Mais</a></div>
+            </label>
+
+            <label class="song-info" id="song-info-3">
+               <div class="title">Trilha de Automobilistica<a id="btnsaibamais" class="btnsaibacar" href="{% url 'trilhaAutomob' %}">Saiba Mais</a></div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container-pesquisa">
+
+        <div class="dropdown-container">
+        <h1 id="cursoh1">Cursos<span id="spanfilter" class="material-symbols-outlined">filter_alt</span></h1>
+        <div class="dropdown-content">
+            <form action="" class="formDropdown">
+            <label>
+                Gratuitos
+                <input type="checkbox" name="Gratuitos" value="1">
+
+            </label>
+            <label>
+                 Pago
+                <input type="checkbox" name="Pago" value="2">
+
+            </label>
+            <label>
+                Presencial
+                <input type="checkbox" name="Presencial" value="3">
+
+            </label>
+            <label>
+                Aprendizagem Continuada
+                <input type="checkbox" name="Pago" value="5">
+
+            </label>
+            <label>
+                Aprendizagem Industrial
+                <input type="checkbox" name="Pago" value="6">
+
+            </label>
+            <label>
+                Técnicos
+                <label class="checkbox btn">
+                    <input id="checkbox" type="checkbox" name="Pago" value="7">
+                    <span class="checkmark"></span>
+                </label>
+            </label>
+                <button type="reset" class="limparFiltro">
+                    Limpar filtros
+                </button>
+
+                </form>
+        </div>
+    </div>
+
+   <form method="GET" action="{% url 'cursos' %}" class="formPesquisa">
+
+        <input type="text" name="search" placeholder="Pesquisar curso" value="{{ query }}">
+        <button type="submit" class="search-btn"><span class="material-symbols-outlined">
+            search
+</span></button>
+
+    </form>
+
+     </div>
+
+
+<div class="maincursos">
+
+
+    {% for curso in cursos %}
+<div class="card2">
+  <div class="card-image">
+      {% if curso.foto %}
+            <img src="{{ curso.foto.url }}" alt="{{ curso.nome }}">
+        {% endif %}
+  </div>
+  <div class="card-content">
+    <div class="category">{{ curso.nome }}</div>
+    <div class="heading">
+      {{ curso.descricao|truncatewords:20 }}
+      <div class="author"><a href="{% url 'detalhesCursos' curso.id %}">Ver Mais</a></div>
+    </div>
+  </div>
+</div>
+    {% endfor %}
+
+</div>
+
+
+
+
+<div class="btn-scroll-top">
+     <a href="#topo" class="scrollTop">
+         <img src="{% static 'totem/images/up.png' %}" alt="">
+     </a>
+</div>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+</body>
+</html>

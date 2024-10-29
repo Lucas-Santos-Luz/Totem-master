@@ -1,0 +1,134 @@
+<!DOCTYPE html> <!-- Declaração do tipo de documento -->
+<html lang="en"> <!-- Início do elemento HTML com especificação do idioma -->
+<head>
+    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8 -->
+    <title>Calendário</title> <!-- Título da página exibido na aba do navegador -->
+    {% load static %} <!-- Carrega arquivos estáticos do Django -->
+ <!--    <link rel="stylesheet" type="text/css" href="{% static 'totem/modelo.css' %}"> Importa a folha de estilo modelo -->
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/calendario.css' %}"> <!-- Importa a folha de estilo do calendário -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!-- Importa fontes do Google -->
+    <meta name="description" content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!"/>
+    <!-- Descrição da página para SEO -->
+    <script type="text/javascript">
+    let idleTime = 0;
+    const idleTimeLimit = 300;
+
+    function resetIdleTime() {
+        idleTime = 0;
+    }
+
+    function checkIdleTime() {
+        idleTime++;
+        if (idleTime >= idleTimeLimit) {
+            window.location.href = "{% url 'telaSuspensa' %}";
+        }
+    }
+
+    setInterval(checkIdleTime, 1000);
+
+    document.body.addEventListener("mousemove", resetIdleTime);
+    document.body.addEventListener("keypress", resetIdleTime);
+    document.body.addEventListener("click", resetIdleTime);
+</script>
+    <meta name="keywords" content="calendar, events, reminders, javascript, html, css, open source coding"/> <!-- Palavras-chave para SEO -->
+</head>
+<body>
+    <!-- Navegação -->
+    <header>
+        <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a> <!-- Logo da aplicação -->
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a> <!-- Link para voltar à página anterior -->
+            <a href="{% url 'telaMenu' %}">Home</a>
+        </div>
+        <nav class="menu">
+            <input id="menu-open" name="menu-open" class="menu-open" href="#" type="checkbox"/> <!-- Checkbox para menu responsivo -->
+            <label for="menu-open" class="menu-open-button"> <!-- Label para abrir/fechar o menu -->
+                <span class="lines line-1"></span> <!-- Linha do menu -->
+                <span class="lines line-2"></span> <!-- Linha do menu -->
+                <span class="lines line-3"></span> <!-- Linha do menu -->
+            </label>
+            <!-- Itens do menu -->
+            <a class="menu-item blue" href="#"><p></p></a>
+            <a class="menu-item green" href="#"><p></p></a>
+            <a class="menu-item red" href="#"><p></p></a>
+            <a class="menu-item purple" href="{% url 'cursos' %}"> <p>Cursos</p></a> <!-- Link para a página de cursos -->
+            <a class="menu-item orange" href="{% url 'sobreEscola' %}"> <p>Escola</p></a> <!-- Link para a página da escola -->
+            <a class="menu-item lightblue" href="{% url 'calendario' %}"> <p><span class="material-symbols-outlined">calendar_month</span></p></a> <!-- Link para a página do calendário -->
+        </nav>
+    </header>
+<div class="container"> <!-- Contêiner principal -->
+    <div class="left"> <!-- Seção esquerda para o calendário -->
+        <div class="calendar">
+            <div class="month"> <!-- Exibe o mês atual -->
+                <i class="fas fa-angle-left prev"></i> <!-- Ícone para voltar ao mês anterior -->
+                <div class="date">Setembro 2024</div> <!-- Mês e ano exibidos -->
+                <i class="fas fa-angle-right next"></i> <!-- Ícone para avançar ao próximo mês -->
+            </div>
+            <div class="weekdays"> <!-- Dias da semana -->
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sab</div>
+            </div>
+            <div class="days"></div> <!-- Seção para os dias do mês -->
+            <div class="goto-today"> <!-- Seção para ir a uma data específica -->
+                <div class="goto">
+                    <input type="text" placeholder="mês/ano" class="date-input"/> <!-- Campo para inserir mês e ano -->
+                    <button class="goto-btn">Ir</button> <!-- Botão para ir para a data inserida -->
+                </div>
+                <button class="today-btn">Hoje</button> <!-- Botão para ir à data atual -->
+            </div>
+        </div>
+    </div>
+    <div class="right"> <!-- Seção direita para exibir eventos -->
+        <div class="today-date"> <!-- Exibe a data atual -->
+            <div class="event-day">Qua</div> <!-- Dia da semana -->
+            <div class="event-date">12th December 2022</div> <!-- Data do evento -->
+        </div>
+        <div class="events"></div> <!-- Seção para listar eventos -->
+        <div class="add-event-wrapper" style="display: none;"> <!-- Seção para adicionar evento, inicialmente escondida -->
+            <div class="add-event-header"> <!-- Cabeçalho da seção de adicionar evento -->
+                <div class="title">Adicionar Evento</div> <!-- Título da seção -->
+                <i class="fas fa-times close"></i> <!-- Ícone para fechar a seção de adicionar evento -->
+            </div>
+            <div class="add-event-body"> <!-- Corpo da seção de adicionar evento -->
+                <div class="add-event-input">
+                    <input type="text" placeholder="Nome do Evento" class="event-name"/> <!-- Campo para nome do evento -->
+                </div>
+                <div class="add-event-input">
+                    <input type="text" placeholder="Hora de Início" class="event-time-from"/> <!-- Campo para hora de início -->
+                </div>
+                <div class="add-event-input">
+                    <input type="text" placeholder="Hora de Conclusão" class="event-time-to"/> <!-- Campo para hora de conclusão -->
+                </div>
+            </div>
+<div class="add-event-footer"> <!-- Rodapé da seção de adicionar evento -->
+                    <button class="add-event-btn">Adicionar Evento</button> <!-- Botão para adicionar o evento -->
+                </div>
+            </div>
+        </div>
+        <button class="add-event"> <!-- Botão para abrir a seção de adicionar evento -->
+            <i class="fas fa-plus"></i> <!-- Ícone de adicionar -->
+        </button>
+    </div>
+
+    <!-- Modal de Login -->
+    <div id="admin-login-modal" class="modal" style="display: none;"> <!-- Modal para login do administrador, inicialmente escondido -->
+        <div class="modal-content"> <!-- Conteúdo do modal -->
+            <h2>Faça login para alterar o calendário!</h2> <!-- Título do modal -->
+            <input type="text" id="admin-username" placeholder="Nome de usuário"/> <!-- Campo para nome de usuário -->
+            <input type="password" id="admin-password" placeholder="Senha"/> <!-- Campo para senha -->
+            <button id="admin-login-btn">Login</button> <!-- Botão para fazer login -->
+            <div id="login-error" style="color: red; display: none;">Credenciais inválidas!</div> <!-- Mensagem de erro de login, inicialmente escondida -->
+        </div>
+    </div>
+
+    <script src="{% static 'totem/calendario.js' %}"></script> <!-- Importa o arquivo JavaScript externo -->
+    <footer>
+        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt=""> <!-- Imagem de rodapé -->
+    </footer>
+</body>
+</html>

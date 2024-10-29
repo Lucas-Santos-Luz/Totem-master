@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!-- Define o conjunto de caracteres como UTF-8 -->
+    <title>Modelo</title> <!-- Título da página que aparece na aba do navegador -->
+    {% load static %} <!-- Carrega a biblioteca de arquivos estáticos do Django -->
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}"> <!-- Link para o arquivo CSS do relatório -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!-- Link para a fonte Material Symbols -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> <!-- Importa a biblioteca jsPDF para gerar PDFs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Importa a biblioteca Chart.js para criar gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Importa o plugin para exibir rótulos de dados nos gráficos -->
+    <style>
+        /* Estilo para o canvas onde o gráfico será desenhado */
+        #myChart {
+            max-width: 550px; /* Define a largura máxima do gráfico */
+            height: 250px; /* Define a altura do gráfico */
+        }
+
+        /* Estilo para centralizar o gráfico na página */
+        .chart-container {
+            display: flex; /* Usar flexbox para centralização */
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            height: 450px; /* Define a altura do contêiner do gráfico */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo"> <!-- Link para a logo da página -->
+            <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC"> <!-- Exibe a logo da SmartEDUC -->
+        </a>
+
+        <div class="logout"> <!-- Div para o botão de logout -->
+            <a onclick="window.history.back()">Voltar</a> <!-- Botão que leva o usuário de volta à página anterior -->
+        </div>
+
+        <nav class="menu"> <!-- Menu de navegação -->
+            <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" /> <!-- Checkbox para abrir o menu -->
+            <label for="menu-open" class="menu-open-button"> <!-- Rótulo que ativa o menu -->
+                <span class="lines line-1"></span> <!-- Linhas do ícone do menu -->
+                <span class="lines line-2"></span>
+                <span class="lines line-3"></span>
+            </label>
+
+            <!-- Links do menu -->
+            <a class="menu-item blue" href="#"><p></p></a>
+            <a class="menu-item green" href="#"><p></p></a>
+            <a class="menu-item red" href="#"><p></p></a>
+            <a class="menu-item purple"><p>Cursos</p></a>
+            <a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
+            <a class="menu-item lightblue" href="{% url 'calendario' %}">
+                <p>
+                    <span class="material-symbols-outlined">calendar_month</span> <!-- Ícone do calendário -->
+                </p>
+            </a>
+        </nav>
+    </header>
+
+    <div class="container"> <!-- Div principal que contém o relatório -->
+        <div class="relatorio"> <!-- Seção do relatório -->
+            <div class="titulo"> <!-- Título do relatório -->
+                <h3>Relatório de feedback</h3> <!-- Cabeçalho 3 para o título -->
+            </div>
+           {% if feedbacks %}
+        <ul>
+        {% for feedback in feedbacks %}
+            <li>
+                <strong>Nome:</strong> {{ feedback.nome }}<br>
+                <strong>Feedback:</strong> {{ feedback.feedback }}<br>
+                <strong>Nota:</strong> {{ feedback.rating }}<br>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum feedback encontrado.</p>
+    {% endif %}
+
+        </div>
+    </div>
+    <br>
+
+    <!-- Container do gráfico com Chart.js -->
+    <div class="chart-container"> <!-- Contêiner para o gráfico -->
+        <canvas id="myChart" style="width: 100%; height: 100%;"></canvas> <!-- Elemento canvas onde o gráfico será desenhado -->
+    </div>
+
+    <script>
+        // Gerando gráfico com Chart.js
+         const ratings = JSON.parse('{{ ratings|safe }}');
+        const ctx = document.getElementById('myChart').getContext('2d'); // Obtém o contexto 2D do canvas
+        const myChart = new Chart(ctx, {
+            type: 'pie', // Define o tipo de gráfico como gráfico de pizza
+            data: {
+                labels: ['Curso 1', 'Curso 2'], // Rótulos para as partes do gráfico
+                datasets: [{
+                    label: 'Quantidade de Interesses', // Rótulo da legenda
+                    data: ratings, // Dados a serem representados no gráfico
+                    backgroundColor: [ // Cores de fundo das partes do gráfico
+                        'rgba(243,71,50,0.93)', // Cor para o primeiro conjunto de dados
+                        'rgba(255,137,22,0.93)',
+                        'rgba(55,94,237,0.93)',
+                        'rgba(255,248,0,0.93)',
+                        'rgb(87,255,0)'// Cor para o segundo conjunto de dados
+                    ],
+                }]
+            },
+            options: {
+                responsive: true, // Faz com que o gráfico seja responsivo
+                maintainAspectRatio: false, // Permite que a proporção do gráfico não seja mantida
+                plugins: {
+                    legend: {
+                        position: 'top', // Posição da legenda do gráfico
+                    },
+                    datalabels: { // Configurações para exibir os rótulos dos dados
+                        color: '#000000', // Cor dos rótulos
+                        font: {
+                            size: 20, // Tamanho da fonte dos rótulos
+                        },
+                        formatter: (value, context) => { // Função para formatar o rótulo
+                            const total = context.chart.data.datasets[0].data.reduce((acc, val) => acc + val, 0); // Soma dos dados
+                            const percentage = ((value / total) * 100).toFixed(2) + '%'; // Calcula a porcentagem
+                            return percentage; // Retorna a porcentagem como rótulo
+                        },
+                        anchor: 'end', // Alinhamento do rótulo
+                        align: 'end', // Posição do rótulo
+                    }
+                }
+            },
+            plugins: [ChartDataLabels] // Adiciona o plugin para exibir porcentagens nos rótulos
+        });
+
+        function generatePDF() { // Função para gerar o PDF
+            const { jsPDF } = window.jspdf; // Desestrutura a classe jsPDF da biblioteca
+            const doc = new jsPDF(); // Cria uma nova instância do documento PDF
+
+            doc.setFontSize(20); // Define o tamanho da fonte para o título
+            doc.text('Relatório Geral', 85, 20); // Adiciona o título ao PDF na posição (85, 20)
+            doc.setFontSize(12); // Define o tamanho da fonte para o restante do texto
+            doc.text('Curso: Técnico em Desenvolvimento de Sistemas', 10, 30); // Adiciona informações do curso
+            doc.text('Quantidade de interesses: 2 pessoas', 10, 40); // Adiciona a quantidade de interesses
+            doc.text('1- Nome: Pedro Henrique', 10, 50); // Adiciona o nome do primeiro interessado
+            doc.text('Tel.: (17)99245-6783', 10, 60); // Adiciona o telefone do primeiro interessado
+            doc.text('e-mail: pedro@gmail.com', 10, 70); // Adiciona o e-mail do primeiro interessado
+            doc.text('2- Nome: Lucas Luz', 10, 80); // Adiciona o nome do segundo interessado
+            doc.text('Tel.: (17)99163-6930', 10, 90); // Adiciona o telefone do segundo interessado
+            doc.text('e-mail: lucas@gmail.com', 10, 100); // Adiciona o e-mail do segundo interessado
+            doc.text('Quantidade de interesses: 1 pessoa', 10, 110); // Adiciona a quantidade de interesses do segundo grupo
+            doc.text('1- Nome: Maysa Fernanda', 10, 120); // Adiciona o nome do terceiro interessado
+            doc.text('Tel.: (17)998183-5990', 10, 130); // Adiciona o telefone do terceiro interessado
+            doc.text('e-mail: maysa@gmail.com', 10, 140); // Adiciona o e-mail do terceiro interessado
+
+            const canvas = document.getElementById('myChart'); // Obtém o elemento canvas do gráfico
+            const imgData = canvas.toDataURL('image/png'); // Converte o canvas em uma imagem em formato PNG
+
+            const imgWidth = 150; // Define a largura desejada da imagem
+            const imgHeight = (canvas.height / canvas.width) * imgWidth; // Calcula a altura proporcional da imagem
+
+            const pageWidth = doc.internal.pageSize.getWidth(); // Obtém a largura da página PDF
+            const xPos = (pageWidth - imgWidth) / 2; // Centraliza a imagem na página
+
+            doc.addImage(imgData, 'PNG', xPos, 140, imgWidth, imgHeight); // Adiciona a imagem do gráfico ao PDF na posição calculada
+            doc.save('relatorio.pdf'); // Salva o PDF com o nome 'relatorio.pdf'
+        }
+
+        function printPage() { // Função para imprimir a página
+            window.print(); // Chama a janela de impressão do navegador
+        }
+    </script>
+
+    <br>
+
+    <div class="containerbtn"> <!-- Div para o botão de download do PDF -->
+        <div class="btn"> <!-- Estilo do botão -->
+            <a href="#" onclick="generatePDF()" style="color: black">Baixar PDF</a> <!-- Link que chama a função para gerar o PDF -->
+        </div>
+    </div>
+
+    <footer> <!-- Rodapé da página -->
+        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt=""> <!-- Logo ou imagem de rodapé -->
+    </footer>
+
+</body>
+</html>

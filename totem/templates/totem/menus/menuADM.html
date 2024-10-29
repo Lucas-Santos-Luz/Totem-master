@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menu ADM</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/menu.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+     <!-- Navegação -->
+    <header>
+        <!-- Logo do site -->
+        <a href="#" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+
+        <!-- Link para logout -->
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+        </div>
+
+        <div class="sair">
+            <a href="{% url 'telaSuspensa' %}">Logout</a>
+        </div>
+
+    </header>
+    <div class="button-container">
+        <a href="{% url 'cadastroCurso' %}" class="btn">Cadastrar Cursos</a>
+        <a href="{% url 'menuREL' %}" class="btn"> Relatórios</a>
+        <a href="{% url 'editarCursos' %}" class="btn">Editar Cursos</a>
+    </div>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trilha de TI</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'totem/trilhaTI.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+<body>
+    <header>
+        <a href="{% url 'telaMenu' %}" class="logo">
+            <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
+        </a>
+        <div class="logout">
+            <a onclick="window.history.back()">Voltar</a>
+        </div>
+
+        <nav class="menu">
+            <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" />
+            <label for="menu-open" class="menu-open-button">
+                <span class="lines line-1"></span>
+                <span class="lines line-2"></span>
+                <span class="lines line-3"></span>
+            </label>
+
+            <a class="menu-item blue" href="#"><p></p></a>
+            <a class="menu-item green" href="#"><p></p></a>
+            <a class="menu-item red" href="#"><p></p></a>
+            <a class="menu-item purple" href="{% url 'cursos' %}"><p>Cursos</p></a>
+            <a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
+            <a class="menu-item lightblue" href="{% url 'calendario' %}">
+                <p>
+                    <span class="material-symbols-outlined">calendar_month</span>
+                </p>
+            </a>
+        </nav>
+    </header>
+<div class="container">
+  <img id="image" src="{% static 'totem/images/bannerTI.png' %}" alt="Banner TI">
+
+  <label id="texto"><h2>Trilha de Tecnologia da <br> Informação</h2></label>
+  <select id="dropdown">
+    <option value="trilhaTI">Selecione a trilha</option>
+      <option value="trilhaTI">Desenvolvimento</option>
+    <option value="trilhaNuvem">Computação em Nuvem</option>
+    <option value="segInfra"  > Segurança/Infraestrutura</option>
+  </select>
+    <script>
+  const dropdown = document.getElementById('dropdown');
+
+  dropdown.addEventListener('change', function() {
+    const selectedOption = dropdown.value;
+    window.location.href = `/${selectedOption}/`; // Adjust the URL pattern as needed
+  });
+</script>
+
+</div>
+
+<div class="sessao">
+
+    <div class="aluno">
+        <img src="{% static 'totem/images/python.png' %}" alt="python">
+        <p class="paluno">Aluno</p>
+    </div>
+<hr class="connection-hr">
+<hr class="connection-hr1">
+<hr class="connection-hr2">
+<hr class="connection-hr3">
+    <div class="container2">
+        <div class="cards">
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/python.png' %}" alt="python">
+                <p>Fundamentos de<br>Python 1</p>
+                <p style="color: red">30h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/códigos.png' %}" alt="codigo">
+                <p>Programação em<br>Python</p>
+                <p style="color: red">60h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/códigos.png' %}" alt="codigo2">
+                <p>Programação<br>Python para Data<br>Science</p>
+                <p style="color: red">60h</p>
+            </div>
+
+        </div>
+        <div class="cards">
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/oracle.png' %}" alt="oracle">
+                <p>Programação<br>Oracle - Java<br>Fundamentals</p>
+                <p style="color: red">80h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/oracle.png' %}" alt="oracle">
+                <p>Programação<br>Oracle - Java<br>Foundations</p>
+                <p style="color: red">80h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+             <div class="flex-item1">
+                <img src="{% static 'totem/images/oracle.png' %}" alt="oracle">
+                <p>Programação<br>Oracle - Java<br>Programing</p>
+                <p style="color: red">80h</p>
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/python.png' %}" alt="python">
+                <p>Soluções integradas<br>com IoT</p>
+                <p style="color: red">30h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+            <div class="flex-item1">
+                <div class="square">
+                    <img src="{% static 'totem/images/computacao.png' %}" alt="computação">
+                    <h3>Computação<br>em<br>Nuvem</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="flex-item1">
+                <img src="{% static 'totem/images/python.png' %}" alt="python">
+                <p>Desenvolvimento de<br>Jogos digitais</p>
+                <p style="color: red">30h</p>
+            </div>
+            <hr style="border: 1px solid black" width=40px>
+            <div class="flex-item1">
+                <div class="square">
+                    <img src="{% static 'totem/images/computacao.png' %}" alt="computação">
+                    <h3>Computação<br>em<br>Nuvem</h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer>
+    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+</footer>
+</body>
+</html>
