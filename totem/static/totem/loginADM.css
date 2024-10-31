@@ -448,12 +448,12 @@ form {
     flex-direction: column;
     gap: 1vw;
     justify-content: center;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
 }
 
 form input {
-    margin-left: 10px;
-    border-radius: 10px;
+
+    border-radius: 5px;
     width: 20vw;
     height: 3vw;
     border: 1.5px solid #d6d6d6;
@@ -461,13 +461,13 @@ form input {
 
 form span {
     position: absolute;
-    margin-left: 15px;
+    margin-left: 8px;
     margin-top: 10px;
     color: #d6d6d6;
 }
 
 form input[type=password], input[type=text] {
-    padding-left: 2vw;
+    padding-left: 2.5vw;
 }
 
 .imgform img {
@@ -475,11 +475,12 @@ form input[type=password], input[type=text] {
 }
 .imgform {
     display: flex;
-    padding: 4vw;
+    padding: 3vw;
 }
 .loginForm {
     display: flex;
     background: linear-gradient(135deg, #ff0000, #ff7373);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 form input[type=submit] {
