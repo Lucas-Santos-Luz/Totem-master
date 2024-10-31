@@ -116,6 +116,30 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
                 console.error('Erro ao registrar interesse:', error);
             });
     }
+    
+    const links = document.querySelectorAll('.sessoes a');
+const contents = document.querySelectorAll('#conteudoSessao p');
+
+links.forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Remove a classe "active" de todos os links
+        links.forEach(l => l.classList.remove('active'));
+
+        // Adiciona a classe "active" ao link clicado
+        this.classList.add('active');
+
+        // Esconde todo o conteúdo
+        contents.forEach(content => content.style.display = 'none');
+
+        // Mostra o conteúdo correspondente ao link clicado
+        const targetContent = document.querySelector(`.${this.dataset.content}`);
+        if (targetContent) {
+            targetContent.style.display = 'block';
+        }
+    });
+});
 </script>
 
 <footer>
