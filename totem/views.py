@@ -1,7 +1,7 @@
 from .models import Feedback
 from django.contrib import messages
 from django.shortcuts import render, redirect
-from .models import Curso, InteresseCurso
+from .models import Curso, InteresseCurso, Login
 from .forms import CursoForm
 from django.urls import reverse
 from django.db.models import Q
@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404
 import json
 from django.http import HttpResponse
 from django.http import JsonResponse
-
+from django.contrib.auth.decorators import login_required
 
 
 def telaMenu(request):
@@ -30,8 +30,6 @@ def calendario(request):
 def loginADM(request):
     return render(request, 'totem/adm/loginADM.html')
 
-def relatorioInteresses(request):
-    return render(request, 'totem/adm/relatorioInteresses.html')
 
 def relatorioFeedback(request):
     return render(request, 'totem/adm/relatorioFeedback.html')
@@ -197,4 +195,25 @@ def relatorioInteresses(request):
         'labels': labels,
         'data': data
     })
+
+def validar_login(request):
+    if request.method == 'POST':
+        # Extraímos o nome de usuário e senha dos dados da forma
+        usuario = request.POST.get('usuario')
+        senha = request.POST.get('senha')
+
+        # Verificamos se o nome de usuário existe no banco de dados
+        user = Login.objects.filter(usuario=usuario).first()
+
+        if user and user.senha == int(senha):
+            # Redireciona para o painel ou página inicial
+            return redirect('menuADM')
+        else:
+            # Credenciais incorretas
+            messages.error(request, "Usuário de usuário ou senha inválido")
+
+        # Renderiza o template de login
+    return render(request, 'totem/adm/loginADM.html')
+
+
 

@@ -10,6 +10,10 @@
     list-style: none;
     text-decoration: none;
 }
+body{
+    background-image: url("images/background.png");
+}
+
 
 footer img {
     width: 15vw;
@@ -435,4 +439,55 @@ enviar {
 .enviar a:hover {
     background-color: var(--vermelho);
     color: #ffffff;
+}
+
+form {
+    background-color: #f8f8f8;
+    padding: 2vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    justify-content: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+form input {
+    margin-left: 10px;
+    border-radius: 10px;
+    width: 20vw;
+    height: 3vw;
+    border: 1.5px solid #d6d6d6;
+}
+
+form span {
+    position: absolute;
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #d6d6d6;
+}
+
+form input[type=password], input[type=text] {
+    padding-left: 2vw;
+}
+
+.imgform img {
+    width: 25vw;
+}
+.imgform {
+    display: flex;
+    padding: 4vw;
+}
+.loginForm {
+    display: flex;
+    background: linear-gradient(135deg, #ff0000, #ff7373);
+}
+
+form input[type=submit] {
+    background: linear-gradient(135deg, #ff0000, #ff7373);
+    color: #fff;
+    font-size: 20px;
+    transition: 1ms;
+}
+form input[type=submit]:hover {
+    background: linear-gradient(140deg, #ff7373, #ff0000);
 }

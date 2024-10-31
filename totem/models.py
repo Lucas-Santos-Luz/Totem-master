@@ -40,3 +40,10 @@ class InteresseCurso(models.Model):
 
     def __str__(self):
         return f"Interesse no curso {self.curso.nome} - {self.num_cliques} cliques"
+
+class Login(models.Model):
+    usuario = models.CharField(max_length=255)
+    senha = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.usuario
