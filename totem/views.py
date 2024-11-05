@@ -32,7 +32,24 @@ def loginADM(request):
 
 
 def relatorioFeedback(request):
-    return render(request, 'totem/adm/relatorioFeedback.html')
+    feedbacks = Feedback.objects.all()
+
+    # Dados para o gráfico
+    labels = ['Excelente', 'Bom', 'Regular', 'Ruim', 'Péssimo']
+    data = [
+        feedbacks.filter(rating=5).count(),
+        feedbacks.filter(rating=4).count(),
+        feedbacks.filter(rating=3).count(),
+        feedbacks.filter(rating=2).count(),
+        feedbacks.filter(rating=1).count(),
+    ]
+
+    return render(request, 'totem/adm/relatorioFeedback.html', {
+        'feedbacks': feedbacks,
+        'labels': json.dumps(labels),
+        'data': json.dumps(data)
+    })
+
 
 def relatorioGeral(request):
     return render(request, 'totem/adm/relatorioGeral.html')
@@ -78,13 +95,15 @@ def feedback_form(request):
         if nome and feedback:
             Feedback.objects.create(nome=nome, feedback=feedback, rating=int(rating))
             messages.success(request, 'Feedback enviado com sucesso!')
-            return redirect('telaMenu')  # Redireciona para a página do menu após a submissão
+            return redirect('agradecimento')  # Redireciona para a página do menu após a submissão
         else:
             messages.error(request, 'Por favor, preencha todos os campos.')
 
     return render(request, 'totem/feedback.html')
 
 
+def agradecimento(request):
+    return render(request, 'totem/menus/agradecimento.html')
 
 
 def adicionar_curso(request):

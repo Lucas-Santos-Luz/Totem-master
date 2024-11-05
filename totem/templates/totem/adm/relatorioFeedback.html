@@ -1,81 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Modelo</title>
+    <title>Relatório de Feedbacks</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px;
+        }
+        .relatorio {
+            padding-left: 30px;
+        }
+        .feedback-item {
+            margin-bottom: 10px;
+        }
+        #graficoInteresses {
+            max-width: 250px;
+            height: 200px;
+            margin: 0;
+        }
+        .chart-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .legend {
+            padding-left: 30px;
+            margin-bottom: 0;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .legend-color-box {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+        .button-container {
+            margin-top: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #E9311AFF;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #ff0091;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <a href="" class="logo">
+        <a href="#" class="logo">
             <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
         </a>
-
         <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
         </div>
-
-        <nav class="menu">
-            <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" />
-            <label for="menu-open" class="menu-open-button">
-                <span class="lines line-1"></span>
-                <span class="lines line-2"></span>
-                <span class="lines line-3"></span>
-            </label>
-
-            <a class="menu-item blue" href="#"><p></p></a>
-            <a class="menu-item green" href="#"><p></p></a>
-            <a class="menu-item red" href="#"><p></p></a>
-            <a class="menu-item purple" ><p>Cursos</p></a>
-            <a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
-            <a class="menu-item lightblue" href="{% url 'calendario' %}">
-                <p>
-                    <span class="material-symbols-outlined">calendar_month</span>
-                </p>
-            </a>
-        </nav>
     </header>
-<div class="container">
-    <div class="relatorio">
-        <div class="titulo">
-        <h3>Relatório de Feedbacks</h3>
-        </div>
-        <div class="homero">
-            <h4>Curso: </h4> <p>Técnico em Desenvolvimento de Sistemas</p>
-            <br>
-            <br>
-            <h4>Quantidade de interesses: </h4> <p>2 pessoas</p>
-            <p>1-</p>
-            <h4>Nome: </h4><p>Pedro Henrique</p><p>   </p><h4>Tel.:</h4><p>(17)99245-6783</p>
-            <br>
-            <h4>e-mail: </h4><p>pedro@gmail.com</p>
-            <p>2-</p>
-            <h4>Nome: </h4><p>Lucas Luz</p><p>   </p><h4>Tel.:</h4><p>(17)99163-6930</p>
-            <br>
-            <h4>e-mail: </h4><p>lucas@gmail.com</p>
-            <br>
-            <br>
-            <h4>Quantidade de interesses: </h4><p>1 pessoas</p>
-            <br>
-            <p>1-</p>
-            <br>
-            <h4>Nome: </h4><p>Maysa Fernanda</p><p>   </p><h4>Tel.:</h4><p>(17)998183-5990</p>
-            <br>
-            <h4>e-mail:</h4><p>maysa@gmail.com</p>
-            <div class="containerbtn">
-                <div class="btn">
-                    <a href="#">Imprimir</a>
-                </div>
+
+    <div class="container">
+        <div class="relatorio">
+            <div class="titulo">
+                <h3>Relatório de Feedbacks</h3>
+            </div>
+            <div class="feedbacks">
+                {% for feedback in feedbacks %}
+                    <div class="feedback-item">
+                        <h4>Nome: {{ feedback.nome }}</h4>
+                        <p>Feedback: {{ feedback.feedback }}</p>
+                        <p>Avaliação: {{ feedback.rating }}</p>
+                        <hr>
+                    </div>
+                {% empty %}
+                    <p>Nenhum feedback registrado até o momento.</p>
+                {% endfor %}
+            </div>
+            <br><br>
+            <div class="chart-container">
+                <canvas id="graficoInteresses"></canvas>
+                <div class="legend" id="legend"></div>
+            </div>
+
+            <div class="button-container">
+                <button class="btn" onclick="generatePDF()">Baixar PDF</button>
             </div>
         </div>
     </div>
-</div>
 
-<footer>
-    <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
-</footer>
+    <footer>
+        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
+    </footer>
 
+    <script>
+    Chart.register(ChartDataLabels);
+
+    const labels = {{ labels|safe }};
+    const data = {{ data|safe }};
+
+    const backgroundColors = [
+        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF5733'
+    ];
+
+    const ctx = document.getElementById('graficoInteresses').getContext('2d');
+    const graficoInteresses = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Número de Interesses',
+                data: data,
+                backgroundColor: backgroundColors,
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                datalabels: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    document.getElementById('graficoInteresses').style.height = '120px';
+
+    function generateLegend() {
+        const legendContainer = document.getElementById('legend');
+        legendContainer.innerHTML = '';
+
+        labels.forEach((label, index) => {
+            const legendItem = document.createElement('div');
+            legendItem.className = 'legend-item';
+
+            const colorBox = document.createElement('div');
+            colorBox.className = 'legend-color-box';
+            colorBox.style.backgroundColor = backgroundColors[index];
+
+            const legendText = document.createElement('span');
+            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
+            legendText.textContent = `${label} (${percentage}%)`;
+
+            legendItem.appendChild(colorBox);
+            legendItem.appendChild(legendText);
+            legendContainer.appendChild(legendItem);
+        });
+    }
+
+    generateLegend();
+
+    function generatePDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Configurações de título do PDF
+    doc.setFontSize(20);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Relatório Geral de Feedbacks', 105, 20, null, null, 'center');
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+
+    let yPosition = 30;
+
+    // Adiciona os feedbacks ao PDF, organizados e espaçados
+    {% for feedback in feedbacks %}
+        if (yPosition > 270) {  // Gera uma nova página quando necessário
+            doc.addPage();
+            yPosition = 20;
+        }
+        doc.text(`Nome: {{ feedback.nome }}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Feedback: {{ feedback.feedback }}`, 10, yPosition);
+        yPosition += 10;
+        doc.text(`Avaliação: {{ feedback.rating }}`, 10, yPosition);
+        yPosition += 15;
+    {% empty %}
+        doc.text('Nenhum feedback registrado até o momento.', 10, yPosition);
+    {% endfor %}
+
+    // Adiciona o gráfico ao PDF
+    const canvas = document.getElementById('graficoInteresses');
+    const imgData = canvas.toDataURL('image/png');
+    const imgWidth = 160; // Largura da imagem
+    const imgHeight = (canvas.height / canvas.width) * imgWidth; // Altura proporcional
+
+    // Centraliza o gráfico na página
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const xPos = (pageWidth - imgWidth) / 2;
+
+    if (yPosition > 180) {  // Gera uma nova página se necessário para o gráfico
+        doc.addPage();
+        yPosition = 20;
+    }
+
+    doc.addImage(imgData, 'PNG', xPos, yPosition, imgWidth, imgHeight);
+
+    yPosition += imgHeight + 15;
+
+    // Adiciona a legenda do gráfico
+    labels.forEach((label, index) => {
+        const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
+        const yPosLegend = yPosition + (index * 10);
+
+        if (yPosLegend > 270) {  // Gera uma nova página para a legenda se necessário
+            doc.addPage();
+            yPosition = 20;
+        }
+
+        doc.setFillColor(backgroundColors[index]);
+        doc.rect(10, yPosLegend, 10, 10, 'F');
+        doc.text(`${label} (${percentage}%)`, 25, yPosLegend + 8);
+    });
+    
+    doc.save('relatorio_feedbacks.pdf');
+}
+
+    </script>
 </body>
 </html>

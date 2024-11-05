@@ -1,5 +1,5 @@
 from django.urls import path
-from totem.views import feedback_form,telaMenu, telaSuspensa, calendario, loginADM, relatorioInteresses, sobreEscola, feedback, detalhesCursos, formInteresse, relatorioFeedback, relatorioGeral, menuADM, menuREL, trilhaTI, trilhaAutomob, segInfra, editarCursos, cursos, trilhaNuvem, trilhaEletrica, trilhaInspetorQuali, adicionar_curso, editarCursos, deletarCurso, telaeditCursos, registrar_interesse, validar_login
+from totem.views import feedback_form,telaMenu, telaSuspensa, calendario, loginADM, relatorioInteresses, sobreEscola, feedback, detalhesCursos, formInteresse, relatorioFeedback, relatorioGeral, menuADM, menuREL, trilhaTI, trilhaAutomob, segInfra, editarCursos, cursos, trilhaNuvem, trilhaEletrica, trilhaInspetorQuali, adicionar_curso, editarCursos, deletarCurso, telaeditCursos, registrar_interesse, validar_login, agradecimento
 
 urlpatterns = [
     path('registrar_interesse/<int:curso_id>/', registrar_interesse, name='registrar_interesse'),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('editarCursos/<int:id>/', editarCursos, name='editarCursos'),
     path('deletarCurso/<int:id>/', deletarCurso, name='deletarCurso'),
     path('login/', validar_login, name='Login'),
+    path('agradecimento/', agradecimento, name='agradecimento'),
 ]
 
 

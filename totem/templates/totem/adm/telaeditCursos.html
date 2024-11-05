@@ -42,26 +42,14 @@ document.body.addEventListener("click", resetIdleTime);
 <!-- Link para logout -->
 <div class="logout">
 <a onclick="window.history.back()">Voltar</a>
-<a href="{% url 'telaMenu' %}">Home</a>
+<a href="{% url 'menuADM' %}">Home</a>
 </div>
+    
+    <div class="sair">
+            <a href="{% url 'telaSuspensa' %}">Logout</a>
+        </div>
 
-
-
-<nav class="menu">
-<input id="menu-open" name="menu-open" class="menu-open" href="#" type="checkbox"/>
-<label for="menu-open" class="menu-open-button">
-<span class="lines line-1"></span>
-<span class="lines line-2"></span>
-<span class="lines line-3"></span>
-</label>
-
-<a class="menu-item blue" href="#"><p></p></a>
-<a class="menu-item green" href="#"><p></p></a>
-<a class="menu-item red" href="#"><p></p></a>
-<a class="menu-item purple" href="#"><p>Cursos</p></a>
-<a class="menu-item orange" href="{% url 'sobreEscola' %}"><p>Escola</p></a>
-<a class="menu-item lightblue" href="{% url 'calendario' %}"><p><span class="material-symbols-outlined">calendar_month</span></p></a>
-</nav>
+    
 </header>
 
     <div class="container-pesquisa">
