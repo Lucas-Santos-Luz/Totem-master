@@ -93,7 +93,6 @@ def feedback_form(request):
 
         if nome and feedback:
             Feedback.objects.create(nome=nome, feedback=feedback, rating=int(rating))
-            messages.success(request, 'Feedback enviado com sucesso!')
             return redirect('agradecimento')  # Redireciona para a página do menu após a submissão
         else:
             messages.error(request, 'Por favor, preencha todos os campos.')
@@ -234,11 +233,3 @@ def validar_login(request):
     return render(request, 'totem/adm/loginADM.html')
 
 
-def get_version():
-    version_file = os.path.join(settings.BASE_DIR, 'version.txt')
-    try:
-        with open(version_file) as f:
-            version = f.read().strip()
-    except FileNotFoundError:
-        version = "Versão desconhecid"
-    return version

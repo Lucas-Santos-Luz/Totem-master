@@ -400,13 +400,13 @@ main {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100px;
+    height: 500px;
     padding-top: 1px
 }
 
 .hugo {
     width: 100%;
-    max-width: 400px;
+    max-width: 35.5vw;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
@@ -429,7 +429,7 @@ label {
     font-weight: bold;
 }
 
-input {
+input[type=text] {
     width: 100%;
     padding: 10px;
     border: 1px solid #282828;
@@ -488,7 +488,7 @@ button:focus {
 
 .estrelas{
     text-align: center;
-    padding-top: 50px
+    padding-top: 25px
 }
 
 .estrelas input[type=radio] {
@@ -578,3 +578,14 @@ button:focus {
 
 }
 
+.terms {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    padding: 1vw;
+}
+
+.terms input {
+    margin-right: 5px;
+    width: 1.5vw;
+}

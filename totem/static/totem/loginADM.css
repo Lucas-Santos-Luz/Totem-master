@@ -452,12 +452,16 @@ form {
 }
 
 form input {
-
     border-radius: 5px;
     width: 20vw;
     height: 3vw;
     border: 1.5px solid #d6d6d6;
 }
+
+form input:focus{
+    outline: 1px solid var(--azul);
+}
+
 
 form span {
     position: absolute;
