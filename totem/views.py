@@ -240,5 +240,5 @@ def get_version():
         with open(version_file) as f:
             version = f.read().strip()
     except FileNotFoundError:
-        version = "Versão desconhecida"
+        version = "Versão desconhecid"
     return version
