@@ -3,14 +3,13 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from .models import Curso, InteresseCurso, Login
 from .forms import CursoForm
-from django.urls import reverse
 from django.db.models import Q
 from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 import json
-from django.http import HttpResponse
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+import os
+from django.conf import settings
 
 
 def telaMenu(request):
@@ -235,4 +234,11 @@ def validar_login(request):
     return render(request, 'totem/adm/loginADM.html')
 
 
-
+def get_version():
+    version_file = os.path.join(settings.BASE_DIR, 'version.txt')
+    try:
+        with open(version_file) as f:
+            version = f.read().strip()
+    except FileNotFoundError:
+        version = "Versão desconhecida"
+    return version
