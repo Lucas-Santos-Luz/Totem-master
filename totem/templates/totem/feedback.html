@@ -84,7 +84,7 @@
              <div class="terms">
               <input type="checkbox" id="aceitar_termos" name="aceitar_termos" required>
               <label for="aceitar_termos">
-                Aceito os termos e condições de privacidade.
+                Aceito os <a href="javascript:void(0);" onclick="openModal()">termos e condições de privacidade.</a>
               </label>
             </div>
             
@@ -106,5 +106,37 @@
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
 </footer>
+
+    <div id="modal-terms" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Termos e Condições</h2>
+        <p>Ao enviar este formulário, você autoriza o uso do seu nome e do feedback fornecido para fins de divulgação e marketing. Esse uso pode incluir, mas não se limita a, publicações em materiais promocionais, redes sociais e outros canais de comunicação da SmartEduc
+            <br> <br>
+        O feedback coletado será utilizado com o propósito de melhorar nossos serviços e divulgar as opiniões e experiências de nossos usuários. Nosso objetivo é garantir um ambiente transparente e focado na melhoria contínua.
+            <br> <br>
+        Garantimos que suas informações pessoais serão tratadas com confidencialidade e utilizadas exclusivamente para os fins descritos neste documento, conforme a nossa Política de Privacidade.
+            <br> <br>
+        Ao marcar a caixa de seleção e enviar o formulário, você declara que leu e concorda com os Termos e Condições acima.</p>
+    </div>
+</div>
+
+    <script>
+        function openModal() {
+    document.getElementById("modal-terms").style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("modal-terms").style.display = "none";
+}
+
+// Fecha o modal ao clicar fora dele
+    window.onclick = function(event) {
+    const modal = document.getElementById("modal-terms");
+    if (event.target === modal) {
+        closeModal();
+    }
+}
+    </script>
 </body>
 </html>
