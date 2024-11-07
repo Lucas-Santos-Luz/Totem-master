@@ -363,7 +363,6 @@ header {
 }
 
 /*----------------------------------------------------------------------*/
-
 .image-container img{
     width: 80vw;
     border-radius: 1vw;
@@ -389,8 +388,7 @@ header {
     width: 100vw;
     padding: 3vw;
     flex-direction: row;
-
-    align-items: stretch;
+    align-items: flex-start;
     gap: 5vw;
     justify-content: center;
 }
@@ -416,8 +414,9 @@ header {
     padding: 3vw;
     flex-direction: row;
     justify-content: center;
-    align-items: stretch;
+    align-items: flex-end;
     gap: 5vw;
+
 }
 
 .container2 div {
@@ -439,7 +438,7 @@ header {
     width: 100vw;
     padding: 3vw;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: stretch;
     gap: 5vw;
 
@@ -585,5 +584,41 @@ footer {
 
 /* ---------------------------------------------------- */
 
+.esconder {
+  display: none;
+}
+
+.outroscr{
+    bottom: 0vw;
+}
+
+
+#mostrar-mais{
+    width: 13vw;
+    background-color: var(--vermelho);
+    color: white;
+    height: 3vw;
+    border-radius: 2vw;
+    font-size: 1.3rem;
+}
+
+#mostrar-menos{
+       width: 13vw;
+    background-color: var(--vermelho);
+    color: white;
+    height: 3vw;
+    font-size: 1.3rem;
+    border-radius: 2vw;
+}
+
+.esconderhr{
+    color: black;
+}
+
+.mostrar-mais-menos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
 
 

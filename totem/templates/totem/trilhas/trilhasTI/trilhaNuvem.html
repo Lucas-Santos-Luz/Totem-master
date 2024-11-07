@@ -3,7 +3,7 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <title>Modelo</title>
+    <title>Computação em nuvem</title>
     <link rel="stylesheet" type="text/css" href="{% static 'totem/nuvem.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
@@ -64,7 +64,7 @@
         <p>Configuração de <br>serviços na nuvem</p>
         <h3>40H</h3>
         </div>
-
+<hr  style="border: 1px solid black; width:10vw; height: 0vw; margin-top: 10vw" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/aws.png' %}">
         <p>Implantação de <br>serviços em <br>nuvem - AWS <br>Cloud practioner <br>foundational</p>
@@ -74,19 +74,23 @@
     </div>
     <br>
 
+    <div class="outroscr esconder">
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; transform: rotate(-130deg); margin-left: 75vw" >
+
+
     <div class="container2">
         <div>
         <img src="{% static 'totem/images/cursosIMG/googleCloud.png' %}">
         <p>Implantação <br>de serviços na <br>nuvem - Google cloud <br>foundationsk</p>
         <h3>40H</h3>
         </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 0vw; margin-bottom: 10vw" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/az900.png' %}">
         <p>Implantação <br>de serviços em <br>nuvem - Microsoft <br>AZ900</p>
         <h3>40H</h3>
         </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 0vw; margin-bottom: 10vw" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/ai900.png' %}">
         <p>Fundamentos <br>de segurança em <br>nuvem Microsoft AI900</p>
@@ -95,39 +99,41 @@
     </div>
 
     <div class="container3">
+        <hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 0vw; transform: rotate(-130deg); margin-left: 8vw" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/googleCloudIA.png' %}">
         <p>Implantação de serviços de <br>inteligência artificial em <br>nuvem - Google cloud <br>ai foundations</p>
         <h3>40H</h3>
         </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 0vw; margin-top: 10vw" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/dp900.png' %}">
         <p>Implantação de serviços <br>em nuvem - Microsoft DP900</p>
         <h3>40H</h3>
         </div>
     </div>
+<hr class="esconderhr" style="border: 1px solid black; width:8vw;margin-top: 1vw; height: 0vw; transform: rotate(70deg); margin-left: 84vw" >
+    <div class="container4" style="margin-top:5vw">
 
-    <div class="container4">
          <div>
         <img src="{% static 'totem/images/cursosIMG/googleCloudEnginner.png' %}">
         <p>Implantação <br>de serviços <br>em nuvem <br>Google cloud <br>engineer</p>
         <h3>40H</h3>
         </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 10vw; transform: rotate(90deg)" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/pl900.png' %}">
         <p>Fundamentos <br>de Power <br>platform <br>Microsoft <br>PL900</p>
         <h3>40H</h3>
         </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:10vw; height: 10vw; transform: rotate(90deg)" >
         <div>
         <img src="{% static 'totem/images/cursosIMG/powerbi.png' %}">
         <p>Power BI</p>
         <h3>32H</h3>
         </div>
     </div>
-
+<hr class="esconderhr" style="border: 1px solid black; width:25vw;margin-top: -3vw; height: 0vw; transform: rotate(-150deg); margin-left: 18vw" >
     <div class="container5">
       <div>
         <img src="{% static 'totem/images/cursosIMG/sc900.png' %}">
@@ -135,10 +141,34 @@
         <h3>40H</h3>
         </div>
     </div>
-
+</div>
+    <div class="mostrar-mais-menos">
+        <button id="mostrar-mais" onclick="mostrarOutrosCursos()">Mostrar mais</button>
+        <button id="mostrar-menos" style="display: none;" onclick="esconderOutrosCursos()">Mostrar menos</button>
+    </div> 
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
 </footer>
+
+    <script>
+function mostrarOutrosCursos() {
+  const outrosCursos = document.querySelectorAll('.esconder');
+  outrosCursos.forEach((curso) => {
+    curso.classList.remove('esconder');
+  });
+  document.getElementById('mostrar-mais').style.display = 'none';
+  document.getElementById('mostrar-menos').style.display = 'block';
+}
+
+function esconderOutrosCursos() {
+  const outrosCursos = document.querySelectorAll('.container2, .container3, .container4, .container5, .esconderhr');
+  outrosCursos.forEach((curso) => {
+    curso.classList.add('esconder');
+  });
+  document.getElementById('mostrar-menos').style.display = 'none';
+  document.getElementById('mostrar-mais').style.display = 'block';
+}
+    </script>
 
 </body>
 </html>
