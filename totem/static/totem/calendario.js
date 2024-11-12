@@ -422,10 +422,15 @@ eventsContainer.addEventListener("click", (e) => {
   if (e.target.classList.contains("event")) {
     const userPassword = prompt("Insira a senha do administrador:");
 
-    // Verifique a senha (substitua "suaSenha" pela senha real)
     if (userPassword === "123") {
-      if (confirm("Tem certeza que deseja deletar esse evento?")) {
+      // Exibe o modal de confirmação
+      const deleteModal = document.getElementById("deleteModal");
+      deleteModal.style.display = "block";
+
+      // Botão de confirmação
+      document.getElementById("confirmDelete").onclick = function () {
         const eventTitle = e.target.children[0].children[1].innerHTML;
+
         eventsArr.forEach((event) => {
           if (
             event.day === activeDay &&
@@ -437,10 +442,9 @@ eventsContainer.addEventListener("click", (e) => {
                 event.events.splice(index, 1);
               }
             });
-            // Se não houver eventos restantes em um dia, remova esse dia do eventsArr
+
             if (event.events.length === 0) {
               eventsArr.splice(eventsArr.indexOf(event), 1);
-              // Remove a classe de evento do dia
               const activeDayEl = document.querySelector(".day.active");
               if (activeDayEl.classList.contains("event")) {
                 activeDayEl.classList.remove("event");
@@ -448,13 +452,22 @@ eventsContainer.addEventListener("click", (e) => {
             }
           }
         });
+
+        // Fecha o modal e atualiza os eventos
+        deleteModal.style.display = "none";
         updateEvents(activeDay);
-      }
+      };
+
+      // Botão de cancelamento
+      document.getElementById("cancelDelete").onclick = function () {
+        deleteModal.style.display = "none";
+      };
     } else {
       alert("Senha incorreta! Você não tem permissão para deletar eventos.");
     }
   }
 });
+
 
 //function to save events in local storage
 function saveEvents() {

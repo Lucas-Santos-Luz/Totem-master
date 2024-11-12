@@ -11,6 +11,49 @@
     text-decoration: none;
 }
 
+body{
+    background-image: url("images/background.png");
+}
+
+.container1 div {
+    background: #fff;
+    padding: 2vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.container2 div {
+    background: #fff;
+    padding: 2vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.container3 div {
+    background: #fff;
+    padding: 4vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.container4 div {
+    background: #fff;
+    padding: 2vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
+.container5 div {
+    background: #fff;
+    padding: 2vw;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+
 :root {
     --azul: #193497;
     --vermelho: #e9311a;
@@ -466,7 +509,7 @@ header {
     flex-direction: row;
     justify-content: center;
     align-items: stretch;
-    gap: 15vw;
+    gap: 12vw;
 }
 
 .container4 div {
@@ -487,7 +530,7 @@ header {
 .container5{
     display: flex;
     width: 100vw;
-    padding: 3vw;
+    padding: 8vw;
     flex-direction: row;
     justify-content: center;
     align-items: stretch;

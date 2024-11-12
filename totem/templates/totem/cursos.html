@@ -87,16 +87,16 @@
             alt="song"
           />
         </label>
+          
         <label class="card" for="item-3" id="song-3">
-
           <img
-            src="{% static 'totem/images/carrosselIMG/inspetorQuali (1).png' %}"
-            alt="song"
-          />
+            src="{% static 'totem/images/carrosselIMG/inspetorQuali (1).png' %}" alt="song"/>
         </label>
+          
           <label class="card" for="item-4" id="song-4">
                 <img src="{% static 'totem/images/carrosselIMG/trilhaAutomob.png' %}" alt="song" />
           </label>
+          
       </div>
       <div class="player">
         <div class="upper-part">
@@ -194,7 +194,6 @@
 
 <div class="maincursos">
 
-
     {% for curso in cursos %}
 <div class="card2">
   <div class="card-image">
@@ -208,6 +207,16 @@
       {{ curso.descricao|truncatewords:20 }}
       <div class="author"><a href="{% url 'detalhesCursos' curso.id %}">Ver Mais</a></div>
     </div>
+      
+            <div class="tags">
+        {% if curso.gratuitos %}<span class="tag">Gratuito</span>{% endif %}
+        {% if curso.pago %}<span class="tag">Pago</span>{% endif %}
+        {% if curso.presencial %}<span class="tag">Presencial</span>{% endif %}
+        {% if curso.aprendizagem_continuada %}<span class="tag">Aprendizagem Continuada</span>{% endif %}
+        {% if curso.aprendizagem_industrial %}<span class="tag">Aprendizagem Industrial</span>{% endif %}
+        {% if curso.tecnicos %}<span class="tag">Técnico</span>{% endif %}
+      </div>
+  
   </div>
 </div>
     {% endfor %}
@@ -217,14 +226,31 @@
 
 
 
-<div class="btn-scroll-top">
+ <div class="btn-scroll-top">
      <a href="#topo" class="scrollTop">
-         <img src="{% static 'totem/images/up.png' %}" alt="">
+         <svg class="svgIcon" viewBox="0 0 384 512">
+    <path
+      d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+    ></path>
+  </svg>
      </a>
 </div>
 
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
 </footer>
+
+<script>
+    const scrollTopButton = document.querySelector(".btn-scroll-top");
+
+      // Função para mostrar ou esconder o botão com base na posição de rolagem
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > window.innerHeight) {
+          scrollTopButton.style.display = "block"; // Mostra o botão
+        } else {
+          scrollTopButton.style.display = "none"; // Esconde o botão
+        }
+      });
+</script>
 </body>
 </html>

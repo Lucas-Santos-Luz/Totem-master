@@ -23,12 +23,14 @@ class Curso(models.Model):
     video = models.URLField(blank=True, null=True)
     foto = models.ImageField(upload_to='images/', blank=True, null=True)
 
+    # tags
     gratuitos = models.BooleanField(default=False)
     pago = models.BooleanField(default=False)
     presencial = models.BooleanField(default=False)
     aprendizagem_continuada = models.BooleanField(default=False)
     aprendizagem_industrial = models.BooleanField(default=False)
     tecnicos = models.BooleanField(default=False)
+    # fim das tags
 
     def __str__(self):
         return self.nome
