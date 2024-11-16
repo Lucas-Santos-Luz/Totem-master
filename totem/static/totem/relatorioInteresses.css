@@ -539,3 +539,19 @@ header {
 .name:hover {
   cursor: pointer;
 }
+
+.feedback-item {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(230, 230, 230, 0.68);
+    padding: 15px;
+    margin-bottom: 1vw;
+    border-radius: 5px;
+}
+
+.feed-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

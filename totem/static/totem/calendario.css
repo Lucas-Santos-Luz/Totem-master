@@ -972,3 +972,24 @@ button a:hover {
   gap: 7px;
   width: 100%;
 }
+
+.modal-content button {
+  max-width: 60%;
+  background-color: var(--vermelho);
+  padding: 10px;
+  border-radius: 5px;
+  transition: 150ms;
+}
+
+.btn-div {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.modal-content button:hover {
+  background-color: #fff;
+  color: var(--vermelho);
+  border: 2px solid var(--vermelho);
+}

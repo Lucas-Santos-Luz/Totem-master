@@ -20,12 +20,6 @@
             margin: 0 auto;
             padding: 50px;
         }
-        .relatorio {
-            padding-left: 30px;
-        }
-        .feedback-item {
-            margin-bottom: 10px;
-        }
         #graficoInteresses {
             max-width: 250px;
             height: 200px;
@@ -92,11 +86,13 @@
             </div>
             <div class="feedbacks">
                 {% for feedback in feedbacks %}
+                    <div class="feed-container">
                     <div class="feedback-item">
                         <h4>Nome: {{ feedback.nome }}</h4>
                         <p>Feedback: {{ feedback.feedback }}</p>
                         <p>Avaliação: {{ feedback.rating }}</p>
                         <hr>
+                    </div>
                     </div>
                 {% empty %}
                     <p>Nenhum feedback registrado até o momento.</p>

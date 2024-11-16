@@ -8,6 +8,7 @@ from django.db.models import Sum
 from django.shortcuts import get_object_or_404
 import json
 from django.http import JsonResponse
+from django.db import IntegrityError
 import os
 from django.conf import settings
 
@@ -27,6 +28,22 @@ def calendario(request):
     return render(request, 'totem/calendario.html')
 
 def loginADM(request):
+    # Usuário e senha pré-definidos
+    usuario_pre = "admin@801"
+    senha_pre = "123"
+
+    # Verifique se o usuário já existe no banco
+    if not Login.objects.filter(usuario=usuario_pre).exists():
+
+       Login.objects.create(
+           usuario=usuario_pre,
+           senha=senha_pre
+       )
+
+    # Renderiza a página de login
+    if request.method == "POST":
+        # Lógica de autenticação
+        return redirect('menuADM')  # Substitua 'home' pela página após o login bem-sucedido
     return render(request, 'totem/adm/loginADM.html')
 
 
