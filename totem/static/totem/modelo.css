@@ -673,6 +673,7 @@ h1 span .material-symbols-outlined {
 }
 
 .dropdown-content {
+
     position: absolute;
     background-color: #f9f9f9;
     min-width: 45vw;
@@ -681,7 +682,7 @@ h1 span .material-symbols-outlined {
     z-index: 1;
        display: none;
     font-size: 24px;
-    height: 40vw;
+    height: 45vw;
 }
 
 .btn-clean {
@@ -921,7 +922,7 @@ footer img {
   width: 60%;
   background: white;
     border: solid 1px var(--vermelho);
-  padding: 0.4em;
+  padding: 2vw;
   border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     max-height: 20vw;
@@ -951,7 +952,6 @@ footer img {
   justify-content: center;
   height: 100%;
     width: 100%;
-    margin: 2vw;
 }
 
 .category {
@@ -1268,3 +1268,35 @@ footer img {
 .card-image img {
         height: 115%;
 }
+
+.no-results img {
+    width: 40%;
+    padding: 3vw;
+    margin-left: 3vw;
+}
+.no-results {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+
+.no-results p {
+    margin-left: 3vw;
+    font-size: 3.5rem;
+    font-weight: bolder;
+    color: #CCCCCC;
+}
+
+#clearSearch {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #888;
+    outline: none;
+    padding: 0;
+}
+#clearSearch:hover {
+    color: #000;
+}
+

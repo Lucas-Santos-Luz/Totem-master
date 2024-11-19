@@ -135,35 +135,36 @@ def adicionar_curso(request):
 
 def cursos(request):
     query = request.GET.get('search', '')
+    tags = request.GET.getlist('tags')
+
     cursos = Curso.objects.all()
 
-    # Recupera os parâmetros das tags de filtro, apenas se os checkboxes estiverem marcados
-    gratuitos = request.GET.get('gratuitos')
-    pago = request.GET.get('pago')
-    presencial = request.GET.get('presencial')
-    aprendizagem_continuada = request.GET.get('aprendizagem_continuada')
-    aprendizagem_industrial = request.GET.get('aprendizagem_industrial')
-    tecnicos = request.GET.get('tecnicos')
-
-    # Aplicando o filtro de busca por nome e descrição
+    # Aplicando o filtro de busca
     if query:
         cursos = cursos.filter(Q(nome__icontains=query) | Q(descricao__icontains=query))
 
-    # Filtros de tags baseados nos checkboxes selecionados
-    if gratuitos:
-        cursos = cursos.filter(gratuitos=True)
-    if pago:
-        cursos = cursos.filter(pago=True)
-    if presencial:
-        cursos = cursos.filter(presencial=True)
-    if aprendizagem_continuada:
-        cursos = cursos.filter(aprendizagem_continuada=True)
-    if aprendizagem_industrial:
-        cursos = cursos.filter(aprendizagem_industrial=True)
-    if tecnicos:
-        cursos = cursos.filter(tecnicos=True)
+    # Filtro por tags
+    if tags:
+        tag_filters = Q()
+        if 'gratuitos' in tags:
+            tag_filters |= Q(gratuitos=True)
+        if 'pago' in tags:
+            tag_filters |= Q(pago=True)
+        if 'presencial' in tags:
+            tag_filters |= Q(presencial=True)
+        if 'aprendizagem_continuada' in tags:
+            tag_filters |= Q(aprendizagem_continuada=True)
+        if 'aprendizagem_industrial' in tags:
+            tag_filters |= Q(aprendizagem_industrial=True)
+        if 'tecnicos' in tags:
+            tag_filters |= Q(tecnicos=True)
+        cursos = cursos.filter(tag_filters)
 
-    return render(request, 'totem/cursos.html', {'cursos': cursos, 'query': query})
+    context = {
+        'cursos': cursos,
+        'query': query,
+    }
+    return render(request, 'totem/cursos.html', context)
 
 
 def editarCursos(request, id):

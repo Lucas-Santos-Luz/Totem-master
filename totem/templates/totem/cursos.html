@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,16 +86,16 @@
             alt="song"
           />
         </label>
-          
+
         <label class="card" for="item-3" id="song-3">
           <img
             src="{% static 'totem/images/carrosselIMG/inspetorQuali (1).png' %}" alt="song"/>
         </label>
-          
+
           <label class="card" for="item-4" id="song-4">
                 <img src="{% static 'totem/images/carrosselIMG/trilhaAutomob.png' %}" alt="song" />
           </label>
-          
+
       </div>
       <div class="player">
         <div class="upper-part">
@@ -139,7 +138,6 @@
       </div>
     </div>
 
-
 <div class="container-pesquisa">
     <div class="dropdown-container">
         <h1 id="cursoh1">Cursos<span id="spanfilter" class="material-symbols-outlined">filter_alt</span></h1>
@@ -147,83 +145,79 @@
             <form action="{% url 'cursos' %}" class="formDropdown" method="GET" id="filterForm">
                 <label>
                     Gratuitos
-                    <input type="checkbox" name="gratuitos" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="gratuitos" onchange="submitFilterForm()">
                 </label>
                 <label>
                     Pago
-                    <input type="checkbox" name="pago" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="pago" onchange="submitFilterForm()">
                 </label>
                 <label>
                     Presencial
-                    <input type="checkbox" name="presencial" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="presencial" onchange="submitFilterForm()">
                 </label>
                 <label>
                     Aprendizagem Continuada
-                    <input type="checkbox" name="aprendizagem_continuada" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="aprendizagem_continuada" onchange="submitFilterForm()">
                 </label>
                 <label>
                     Aprendizagem Industrial
-                    <input type="checkbox" name="aprendizagem_industrial" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="aprendizagem_industrial" onchange="submitFilterForm()">
                 </label>
                 <label>
                     Técnicos
-                    <input type="checkbox" name="tecnicos" value="1" onchange="submitFilterForm()">
+                    <input type="checkbox" name="tags" value="tecnicos" onchange="submitFilterForm()">
                 </label>
                 <button type="reset" class="limparFiltro" onclick="resetFilterForm()">Limpar filtros</button>
             </form>
         </div>
     </div>
-
-    <form method="GET" action="{% url 'cursos' %}" class="formPesquisa">
-        <input type="text" name="search" placeholder="Pesquisar curso" value="{{ query }}">
-        <button type="submit" class="search-btn"><span class="material-symbols-outlined">search</span></button>
-    </form>
+    
+<form method="GET" action="{% url 'cursos' %}" class="formPesquisa">
+    <div style="position: relative; display: flex">
+        <input type="text" name="search" placeholder="Pesquisar curso" value="{{ query }}" id="searchInput">
+        <button type="button" id="clearSearch" style="display: none;position: absolute;right: 80px;top: 50%;transform: translateY(-50%);cursor: pointer;font-size: 50px;">×</button>
+        <button type="submit" class="search-btn">
+            <span class="material-symbols-outlined">search</span>
+        </button>
+    </div>
+</form>
+    
 </div>
-
-<script>
-    function submitFilterForm() {
-        document.getElementById("filterForm").submit();
-    }
-
-    function resetFilterForm() {
-        // Aguarda o reset e então envia o formulário para aplicar a limpeza dos filtros
-        setTimeout(() => document.getElementById("filterForm").submit(), 100);
-    }
-</script>
-
 
 <div class="maincursos">
-
-    {% for curso in cursos %}
-<div class="card2">
-  <div class="card-image">
-      {% if curso.foto %}
-            <img src="{{ curso.foto.url }}" alt="{{ curso.nome }}">
-        {% endif %}
-  </div>
-  <div class="card-content">
-    <div class="category">{{ curso.nome }}</div>
-    <div class="heading">
-      {{ curso.descricao|truncatewords:20 }}
-      <div class="author"><a href="{% url 'detalhesCursos' curso.id %}">Ver Mais</a></div>
-    </div>
-      
-            <div class="tags">
-        {% if curso.gratuitos %}<span class="tag">Gratuito</span>{% endif %}
-        {% if curso.pago %}<span class="tag">Pago</span>{% endif %}
-        {% if curso.presencial %}<span class="tag">Presencial</span>{% endif %}
-        {% if curso.aprendizagem_continuada %}<span class="tag">Aprendizagem Continuada</span>{% endif %}
-        {% if curso.aprendizagem_industrial %}<span class="tag">Aprendizagem Industrial</span>{% endif %}
-        {% if curso.tecnicos %}<span class="tag">Técnico</span>{% endif %}
-      </div>
-  
-  </div>
+    {% if cursos %}
+        {% for curso in cursos %}
+        <div class="card2">
+            <div class="card-image">
+                {% if curso.foto %}
+                    <img src="{{ curso.foto.url }}" alt="{{ curso.nome }}">
+                {% endif %}
+            </div>
+            <div class="card-content">
+                <div class="category">{{ curso.nome }}</div>
+                <div class="heading">
+                    {{ curso.descricao|truncatewords:20 }}
+                    <div class="author"><a href="{% url 'detalhesCursos' curso.id %}">Ver Mais</a></div>
+                </div>
+                <div class="tags">
+                    {% if curso.gratuitos %}<span class="tag">Gratuito</span>{% endif %}
+                    {% if curso.pago %}<span class="tag">Pago</span>{% endif %}
+                    {% if curso.presencial %}<span class="tag">Presencial</span>{% endif %}
+                    {% if curso.aprendizagem_continuada %}<span class="tag">Aprendizagem Continuada</span>{% endif %}
+                    {% if curso.aprendizagem_industrial %}<span class="tag">Aprendizagem Industrial</span>{% endif %}
+                    {% if curso.tecnicos %}<span class="tag">Técnico</span>{% endif %}
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-results">
+            <img src="{% static 'totem/images/Search-rafiki.png' %}" alt="Nenhum resultado encontrado">
+            <p>Nenhum resultado encontrado :(</p>
+        </div>
+    {% endif %}
 </div>
-    {% endfor %}
-
-</div>
-
-
 
 
  <div class="btn-scroll-top">
@@ -241,6 +235,19 @@
 </footer>
 
 <script>
+    document.getElementById("cursoh1").addEventListener("click", function () {
+    const dropdown = document.querySelector(".dropdown-content");
+    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+});
+    
+    function submitFilterForm() {
+        document.getElementById("filterForm").submit();
+    }
+
+    function resetFilterForm() {
+        setTimeout(() => document.getElementById("filterForm").submit(), 100);
+    }
+    
     const scrollTopButton = document.querySelector(".btn-scroll-top");
 
       // Função para mostrar ou esconder o botão com base na posição de rolagem
@@ -251,6 +258,23 @@
           scrollTopButton.style.display = "none"; // Esconde o botão
         }
       });
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.getElementById("searchInput");
+        const clearSearch = document.getElementById("clearSearch");
+    
+        // Exibir ou ocultar o botão "X" com base no valor do input
+        searchInput.addEventListener("input", function () {
+            clearSearch.style.display = this.value ? "inline" : "none";
+        });
+    
+        // Limpar o campo de pesquisa e recarregar a página
+        clearSearch.addEventListener("click", function () {
+            searchInput.value = ""; // Limpa o campo
+            clearSearch.style.display = "none"; // Oculta o botão
+            window.location.href = "{% url 'cursos' %}"; // Redireciona para a página inicial
+        });
+});
 </script>
 </body>
 </html>
