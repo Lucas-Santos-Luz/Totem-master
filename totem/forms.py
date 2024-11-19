@@ -1,16 +1,17 @@
 from django import forms
-
-from django import forms
 from .models import Curso
 
+# Formulário baseado no modelo Curso para criar ou editar cursos
 class CursoForm(forms.ModelForm):
     class Meta:
-        model = Curso
+        model = Curso  # Modelo associado ao formulário
         fields = [
             'nome', 'descricao', 'informacoes', 'requisitos', 'video', 'foto',
             'link_informacoes', 'link_interesses', 'gratuitos', 'pago',
             'presencial', 'aprendizagem_continuada', 'aprendizagem_industrial', 'tecnicos'
-        ]
+        ]  # Campos do modelo Curso que serão incluídos no formulário
+
+        # Etiquetas para cada campo, que serão exibidas na interface
         labels = {
             'nome': 'Nome do Curso',
             'descricao': 'Descrição',
@@ -27,6 +28,8 @@ class CursoForm(forms.ModelForm):
             'aprendizagem_industrial': 'Aprendizagem Industrial',
             'tecnicos': 'Técnico'
         }
+
+        # Widgets personalizados para cada campo, que ajustam a aparência e o comportamento dos inputs
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control'}),
             'descricao': forms.Textarea(attrs={'rows': 3, 'class': 'form-control'}),

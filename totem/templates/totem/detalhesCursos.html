@@ -93,7 +93,7 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
 
    <div class="botoesContainer">
     <div class="Ricardito">
-    <a href="{{ curso.link_interesses }}" onclick="registrarInteresse({{ curso.id }}); return false;">Tenho Interesse!</a>
+    <a href="https://www.sp.senai.br/" onclick="registrarInteresse({{ curso.id }}); return false;">Tenho Interesse!</a>
     </div>
     <div class="Ermano">
         <a href="{{ curso.link_informacoes }}">Mais Informações</a>
@@ -109,7 +109,7 @@ frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media
             .then(data => {
                 if (data.status === 'sucesso') {
                     // Redireciona para o link após o registro do interesse
-                    window.location.href = 'https://www.sp.senai.br/';
+                    window.location.href = '{{ curso.link_interesses }}';
                 }
             })
             .catch(error => {
