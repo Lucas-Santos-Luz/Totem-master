@@ -235,7 +235,48 @@
 </footer>
 
 <script>
-    document.getElementById("cursoh1").addEventListener("click", function () {
+    document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+
+    // Mostrar o botão "X" apenas quando há texto no input
+    searchInput.addEventListener('input', function () {
+        if (searchInput.value.trim() !== '') {
+            clearSearch.style.display = 'block';
+        } else {
+            clearSearch.style.display = 'none';
+        }
+    });
+
+    // Comportamento do botão "X"
+    clearSearch.addEventListener('click', function () {
+        if (searchInput.value.trim() !== '') {
+            if (searchInput.dataset.searched === "true") {
+                // Limpar o campo e recarregar a página porque já houve uma pesquisa submetida
+                searchInput.value = '';
+                document.querySelector('.formPesquisa').submit();
+            } else {
+                // Apenas limpar o campo sem recarregar a página
+                searchInput.value = '';
+                clearSearch.style.display = 'none';
+            }
+        } else {
+            // Apenas esconder o botão se o campo já estiver vazio
+            clearSearch.style.display = 'none';
+        }
+    });
+
+    // Inicializar o botão e definir o estado pesquisado ao carregar a página
+    if (searchInput.value.trim() !== '') {
+        clearSearch.style.display = 'block';
+        // Marca que já houve uma pesquisa com base no valor inicial do campo
+        searchInput.dataset.searched = "true";
+    } else {
+        searchInput.dataset.searched = "false";
+    }
+});
+    
+        document.getElementById("cursoh1").addEventListener("click", function () {
     const dropdown = document.querySelector(".dropdown-content");
     dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
 });
@@ -258,23 +299,6 @@
           scrollTopButton.style.display = "none"; // Esconde o botão
         }
       });
-    
-    document.addEventListener("DOMContentLoaded", function () {
-        const searchInput = document.getElementById("searchInput");
-        const clearSearch = document.getElementById("clearSearch");
-    
-        // Exibir ou ocultar o botão "X" com base no valor do input
-        searchInput.addEventListener("input", function () {
-            clearSearch.style.display = this.value ? "inline" : "none";
-        });
-    
-        // Limpar o campo de pesquisa e recarregar a página
-        clearSearch.addEventListener("click", function () {
-            searchInput.value = ""; // Limpa o campo
-            clearSearch.style.display = "none"; // Oculta o botão
-            window.location.href = "{% url 'cursos' %}"; // Redireciona para a página inicial
-        });
-});
 </script>
 </body>
 </html>

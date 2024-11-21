@@ -3,36 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Relatório de Interesses</title>
+    <!-- Carregamento do arquivo CSS para o estilo da página -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
+    <!-- Carregamento da biblioteca jsPDF para gerar o PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Carregamento do Chart.js para gerar gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Carregamento do plugin de rótulos para Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 
     <style>
+        /* Estilo geral da página */
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-     
+
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 50px;
         }
-        .relatorio {
-            padding-left: 30px; /* Adiciona margem interna para afastar o texto */
 
+        .relatorio {
+            padding-left: 30px;
         }
+
+        /* Estilo para as informações de cada curso */
         .curso-interesse {
-            margin-bottom: 10px; /* Reduz a margem inferior para os cursos */
+            margin-bottom: 10px;
         }
+
+        /* Estilo do gráfico */
         #graficoInteresses {
             max-width: 250px;
-            height: 200px; /* Ajuste este valor para uma altura menor */
+            height: 200px;
             margin: 0;
         }
+
+        /* Container que envolve o gráfico e a legenda */
         .chart-container {
             display: flex;
             align-items: center;
@@ -41,202 +52,223 @@
             margin-top: 10px;
         }
 
+        /* Estilo da legenda que fica à direita do gráfico */
         .legend {
             padding-left: 30px;
             margin-bottom: 0;
         }
+
+        /* Cada item da legenda */
         .legend-item {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
         }
+
+        /* Cor de fundo da caixa da legenda */
         .legend-color-box {
             width: 15px;
             height: 15px;
             margin-right: 5px;
         }
+
+        /* Estilo para o botão de gerar PDF */
         .button-container {
-            margin-top: 20px; /* Margem superior para afastar do gráfico */
-            text-align: center; /* Centraliza o botão */
+            margin-top: 20px;
+            text-align: center;
             margin-bottom: 20px;
         }
+
         .btn {
-            display: inline-block; /* Para que o botão possa ser estilizado */
-            padding: 10px 20px; /* Ajusta o preenchimento do botão */
-            background-color: #E9311AFF; /* Cor de fundo do botão */
-            color: white; /* Cor do texto do botão */
-            border: none; /* Remove bordas padrão */
-            border-radius: 20px; /* Bordas arredondadas */
-            text-decoration: none; /* Remove sublinhado */
-            font-size: 16px; /* Tamanho da fonte do botão */
-            transition: background-color 0.3s; /* Efeito de transição */
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #E9311AFF;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
             margin-top: 10px;
         }
+
+        /* Efeito de hover para o botão */
         .btn:hover {
-            background-color: #45a049; /* Cor do botão ao passar o mouse */
+            background-color: #45a049;
         }
 
     </style>
 </head>
 <body>
+    <!-- Cabeçalho da página -->
     <header>
+        <!-- Logo da página -->
         <a href="#" class="logo">
             <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
         </a>
+        <!-- Link para voltar à página anterior -->
         <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
         </div>
     </header>
 
     <div class="container">
-
+        <!-- Seção principal do relatório -->
         <div class="relatorio">
             <div class="titulo">
                 <h3>Relatório de Interesses</h3>
             </div>
 
+            <!-- Laço que exibe os cursos e o número de interesses -->
             {% for curso in cursos %}
                 <div class="curso-interesse">
                     <h4>Curso: {{ curso.nome }}</h4>
                     <p>Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}</p>
                 </div>
             {% empty %}
+                <!-- Caso não haja cursos, mostra uma mensagem -->
                 <p>Nenhum interesse registrado até o momento.</p>
             {% endfor %}
 
             <br><br>
+            <!-- Container para o gráfico e a legenda -->
             <div class="chart-container">
                 <canvas id="graficoInteresses"></canvas>
                 <div class="legend" id="legend"></div>
             </div>
 
-            <!-- Div para o botão agora está aqui, logo abaixo do gráfico -->
+            <!-- Botão para gerar e baixar o PDF -->
             <div class="button-container">
-                <div class="btn" style="background-color: #E9311AFF">
-                    <a href="#" onclick="setTimeout(generatePDF, 500)" style="color: white; text-decoration: none;">Baixar PDF</a>
+                <div class="btn">
+                    <a href="#" onclick="generatePDF()" style="color: white; text-decoration: none;">Baixar PDF</a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
+        <!-- Logo de Powered by Smart.EDUC -->
         <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
     </footer>
 
     <script>
+    // Registro do plugin de rótulos para o Chart.js
     Chart.register(ChartDataLabels);
 
+    // Dados do gráfico (labels e data são passados do servidor para o frontend)
     const labels = {{ labels|safe }};
     const data = {{ data|safe }};
 
-    // Defina suas cores aqui
-    const backgroundColors = [
-        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF5733'
-    ];
+    // Gerar cores infinitas para o gráfico com base no índice de cada fatia
+    const backgroundColors = data.map((_, index) => {
+        const hue = (index * 137.5) % 360; // Cálculo para gerar cores diferentes para cada fatia
+        return `hsl(${hue}, 70%, 60%)`;  // Usando a fórmula HSL para criar uma cor única para cada fatia
+    });
 
+    // Inicialização do gráfico pie (gráfico de pizza)
     const ctx = document.getElementById('graficoInteresses').getContext('2d');
     const graficoInteresses = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: labels,
+            labels: labels,  // Rótulos das fatias (nomes dos cursos)
             datasets: [{
                 label: 'Número de Interesses',
-                data: data,
-                backgroundColor: backgroundColors,
-                borderColor: '#fff',
-                borderWidth: 2
+                data: data,  // Dados (quantidade de interesses para cada curso)
+                backgroundColor: backgroundColors,  // Cores geradas dinamicamente
+                borderColor: '#fff',  // Cor da borda (branca)
+                borderWidth: 2  // Largura da borda
             }]
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false, // Desativa a proporção para customizar a altura
+            maintainAspectRatio: false,  // Permite ajustar o tamanho do gráfico
             plugins: {
                 legend: {
-                    display: false
+                    display: false  // Não exibe a legenda padrão do gráfico
                 },
                 datalabels: {
-                    display: false
+                    display: false  // Não exibe os rótulos dentro das fatias
                 }
             }
         }
     });
 
-    // Define a altura diretamente via CSS
-    document.getElementById('graficoInteresses').style.height = '120px';
-
+    // Função para gerar a legenda personalizada ao lado do gráfico
     function generateLegend() {
         const legendContainer = document.getElementById('legend');
-        legendContainer.innerHTML = '';
+        legendContainer.innerHTML = '';  // Limpa qualquer conteúdo pré-existente na legenda
 
+        // Gera os itens da legenda para cada fatia do gráfico
         labels.forEach((label, index) => {
             const legendItem = document.createElement('div');
             legendItem.className = 'legend-item';
 
             const colorBox = document.createElement('div');
             colorBox.className = 'legend-color-box';
-            colorBox.style.backgroundColor = backgroundColors[index];
+            colorBox.style.backgroundColor = backgroundColors[index];  // Cor da caixa da legenda
 
             const legendText = document.createElement('span');
-            // Adiciona a porcentagem ao lado do nome do curso na legenda
-            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-            legendText.textContent = `${label} (${percentage}%)`;
+            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);  // Calcula a porcentagem
+            legendText.textContent = `${label} (${percentage}%)`;  // Exibe o nome do curso e a porcentagem
 
+            // Adiciona o item à legenda
             legendItem.appendChild(colorBox);
             legendItem.appendChild(legendText);
             legendContainer.appendChild(legendItem);
         });
     }
 
-    generateLegend();
+    generateLegend();  // Chama a função para gerar a legenda
 
+    // Função para gerar o PDF
     function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+        const { jsPDF } = window.jspdf;  // Carrega a biblioteca jsPDF
+        const doc = new jsPDF();  // Cria um novo documento PDF
 
-        // Adiciona título ao PDF
+        // Define o título do PDF
         doc.setFontSize(20);
         doc.setFont('helvetica', 'bold');
-        doc.text('Relatório Geral', 85, 20);
+        doc.text('Relatório Geral', 85, 20);  // Posiciona o título no PDF
 
         doc.setFontSize(12);
         doc.setFont('helvetica', 'normal');
 
-        let yPosition = 40;
+        let yPosition = 40;  // Posição inicial para o conteúdo
 
-        // Adiciona informações dos cursos
+        // Adiciona as informações dos cursos ao PDF
         {% for curso in cursos %}
-            doc.text('Curso: {{ curso.nome }}', 10, yPosition);
+            doc.text('Curso: {{ curso.nome }}', 10, yPosition);  // Nome do curso
             yPosition += 10;
-            doc.text('Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}', 10, yPosition);
+            doc.text('Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}', 10, yPosition);  // Quantidade de interesses
             yPosition += 10;
         {% endfor %}
 
         // Adiciona o gráfico ao PDF
         const canvas = document.getElementById('graficoInteresses');
-        const imgData = canvas.toDataURL('image/png');
+        const imgData = canvas.toDataURL('image/png');  // Converte o gráfico para imagem
 
         const imgWidth = 80;
-        const imgHeight = (canvas.height / canvas.width) * imgWidth;
+        const imgHeight = (canvas.height / canvas.width) * imgWidth;  // Mantém a proporção do gráfico
 
         const pageWidth = doc.internal.pageSize.getWidth();
-        const xPos = (pageWidth - imgWidth) / 2;
-        doc.addImage(imgData, 'PNG', xPos, yPosition + 10, imgWidth, imgHeight);
+        const xPos = (pageWidth - imgWidth) / 2;  // Centraliza a imagem no PDF
+        doc.addImage(imgData, 'PNG', xPos, yPosition + 10, imgWidth, imgHeight);  // Adiciona a imagem do gráfico
 
-        // Atualiza a posição vertical após o gráfico
-        yPosition += imgHeight + 15;
+        yPosition += imgHeight + 15;  // Atualiza a posição após o gráfico
 
         // Adiciona a legenda ao PDF
         labels.forEach((label, index) => {
             const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-            const yPosLegend = yPosition + (index * 10);
+            const yPosLegend = yPosition + (index * 10);  // Posição para cada item da legenda
 
-            doc.setFillColor(backgroundColors[index]);
-            doc.rect(10, yPosLegend, 10, 10, 'F'); // Cor da caixa
+            doc.setFillColor(backgroundColors[index]);  // Cor da caixa de legenda
+            doc.rect(10, yPosLegend, 10, 10, 'F');  // Adiciona a caixa colorida
+
             doc.setFont('helvetica', 'normal');
-            doc.text(`${label} (${percentage}%)`, 25, yPosLegend + 8); // Texto da legenda
+            doc.text(`${label} (${percentage}%)`, 25, yPosLegend + 8);  // Adiciona o texto da legenda
         });
 
-        doc.save('relatorio.pdf');
+        doc.save('relatorio.pdf');  // Salva e baixa o PDF
     }
     </script>
 
