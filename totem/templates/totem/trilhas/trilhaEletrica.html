@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Modelo</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Eletrica</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/eletricista.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 <body>
-    <header>
+       <header>
         <a href="#" class="logo"><img src="static/totem/images/logoSmartEDUC.png" alt="Logo"></a>
         <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Inicio</a>
         </div>
         <nav class="menu">
             <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" />
@@ -38,6 +42,14 @@
 
 
         <div class="grid">
+            <div class="card" style="margin-left: 22vw " data-title="Ajustador Mecânico">
+                    <img src="{% static 'totem/images/unnamed.png' %}" alt="Ajustador Mecânico 100H">
+                    <div class="card-content">
+                        <h2 class="card-title">Aluno </h2>
+                    </div>
+            </div>
+
+            <h2 class="h2top">FASE 1</h2>
             <div class="sessao1">
 
             <div class="card" data-title="Manutenção em Condicionado de Ar Tipo Split">
@@ -62,7 +74,7 @@
             </div>
             </div>
 
-
+            <h2 class="h2top">FASE 2</h2>
             <div class="sessao2">
 
             <div class="card" data-title="Automoção de Iluminação com Dispositivos Inteligentes">
@@ -93,7 +105,7 @@
                 </div>
             </div>
             </div>
-
+            <h2 class="h2top">FASE 3</h2>
             <div class="sessao3">
 
             <div class="card" data-title="Eletrônica Digital">
@@ -124,7 +136,7 @@
                 </div>
             </div>
             </div>
-
+            <h2 class="h2top">FASE 3</h2>
             <div class="sessao4">
             <div class="card" data-title="Técnicas de Brasagem em Tubulação de Cobre">
                 <img src="{% static 'totem/images/naosei.png' %}" alt="Técnicas de Brasagem em Tubulação de Cobre">
@@ -148,27 +160,6 @@
         </div>
     </div>
 
-    <script>
-        const cards = document.querySelectorAll('.card');
-const successMessage = document.querySelector('.success-message');
-
-cards.forEach(card => {
-    card.addEventListener('click', () => {
-
-        cards.forEach(c => c.style.transform = 'scale(1.1)');
-
-        setTimeout(() => {
-
-            cards.forEach(c => c.style.transform = 'scale(1)');
-        }, 200);
-    });
-});
-
-setTimeout(() => {
-    successMessage.style.display = 'block';
-}, 5000);
-
-    </script>
 
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">

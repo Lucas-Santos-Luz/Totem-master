@@ -46,6 +46,11 @@ header {
     height: 13vw;
 }
 
+body{
+ background-image: url("images/background.png");
+}
+
+
 .logo {
     display: flex;
     align-items: center;
@@ -404,12 +409,14 @@ header {
 .container1{
     display: flex;
     padding: 4vw;
-    width: 75vw;
+    width: 90vw;
     flex-direction: row;
     align-items: stretch;
     text-align: center;
-    gap: 4vw;
+    gap: 8vw;
     justify-content: center;
+    position: relative;
+    background-color: var(--branco);
 }
 
 .container1 div {
@@ -430,14 +437,15 @@ header {
 }
 
 .container2{
-
     display: flex;
     padding: 2vw;
-    width: 70vw;
+    width: 80vw;
     flex-direction: row;
     align-items: stretch;
     text-align: center;
-    gap: 4vw;
+    gap: 10vw;
+     background-color: var(--branco);
+    margin-top: 10vw;
 }
 .container2 div {
     background-color: var(--branco);
@@ -463,4 +471,65 @@ header {
     justify-content: space-evenly;
     flex-wrap: wrap;
     align-items: center;
+}
+
+.aluno {
+    margin-top: 10vw;
+    height: 17vw;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1;
+    background-color: var(--branco);
+  border-radius: 2vw;
+    margin-left: 10vw;
+}
+
+.hrcone{
+        position: absolute;
+      top: -12%;
+      left: 45%;
+      border: 1px solid black;
+      width:8vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone10{
+        position: absolute;
+      top: 114%;
+      left: 43%;
+      border: 1px solid black;
+      width:8vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+#mostrar-mais{
+
+    background-color: var(--vermelho);
+    color: white;
+    padding: 1.5vw;
+    border-radius: 2vw;
+    margin-top: 3vw;
+    font-size: 20px;
+}
+
+#mostrar-menos{
+
+    background-color: var(--vermelho);
+    color: white;
+    padding: 1.5vw;
+    border-radius: 2vw;
+    margin-top: 3vw;
+    font-size: 20px;
+}
+
+.esconder {
+  display: none;
+}
+
+.botoes {
+    width: 100%;
+    justify-content: center;
+    display: flex;
 }

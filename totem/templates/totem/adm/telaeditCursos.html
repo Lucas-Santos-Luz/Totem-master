@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>curso</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>Editar cursos</title>
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'totem/modelo.css' %}">
 <script src="{% static 'totem/script.js' %}" type="text/javascript"></script>
@@ -42,7 +45,9 @@ document.body.addEventListener("click", resetIdleTime);
 <!-- Link para logout -->
 <div class="logout">
 <a onclick="window.history.back()">Voltar</a>
-<a href="{% url 'menuADM' %}">Home</a>
+    
+    
+<a href="{% url 'menuADM' %}">Inicio</a>
 </div>
     
     <div class="sair">

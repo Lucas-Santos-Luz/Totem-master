@@ -1,244 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Relatório de Interesses</title>
-    {% load static %}
+    {% load static %} <!-- Carrega as tags para trabalhar com arquivos estáticos no Django -->
+   
+    <!-- Link para o arquivo CSS personalizado -->
     <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
+   
+    <!-- Bibliotecas JavaScript para gráficos e geração de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+   
     <style>
+        /* Estilos gerais da página */
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
-     
+
+        /* Contêiner principal */
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 50px;
         }
-        .relatorio {
-            padding-left: 30px; /* Adiciona margem interna para afastar o texto */
 
+        /* Área do relatório */
+        .relatorio {
+            padding-left: 30px;
         }
+
+        /* Cada curso listado */
         .curso-interesse {
-            margin-bottom: 10px; /* Reduz a margem inferior para os cursos */
+            margin-bottom: 10px; /* Espaçamento entre os itens */
         }
+
+        /* Canvas do gráfico */
         #graficoInteresses {
             max-width: 250px;
-            height: 200px; /* Ajuste este valor para uma altura menor */
+            height: 200px;
             margin: 0;
         }
+
+        /* Contêiner do gráfico e legenda */
         .chart-container {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 5px; /* Reduz o espaço acima do gráfico */
         }
 
+        /* Último item da lista de cursos */
+        .curso-interesse:last-of-type {
+            margin-bottom: 5px; /* Reduz o espaço entre o último curso e o gráfico */
+        }
+
+        /* Contêiner para a legenda */
         .legend {
             padding-left: 30px;
             margin-bottom: 0;
         }
+
+        /* Cada item da legenda */
         .legend-item {
             display: flex;
             align-items: center;
             margin-bottom: 5px;
         }
+
+        /* Cor na legenda */
         .legend-color-box {
             width: 15px;
             height: 15px;
             margin-right: 5px;
         }
+
+        /* Botão para baixar o PDF */
         .button-container {
-            margin-top: 20px; /* Margem superior para afastar do gráfico */
-            text-align: center; /* Centraliza o botão */
+            margin-top: 20px;
+            text-align: center;
             margin-bottom: 20px;
         }
+
+        /* Estilo do botão */
         .btn {
-            display: inline-block; /* Para que o botão possa ser estilizado */
-            padding: 10px 20px; /* Ajusta o preenchimento do botão */
-            background-color: #E9311AFF; /* Cor de fundo do botão */
-            color: white; /* Cor do texto do botão */
-            border: none; /* Remove bordas padrão */
-            border-radius: 20px; /* Bordas arredondadas */
-            text-decoration: none; /* Remove sublinhado */
-            font-size: 16px; /* Tamanho da fonte do botão */
-            transition: background-color 0.3s; /* Efeito de transição */
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #E9311AFF;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s;
             margin-top: 10px;
         }
+
+        /* Efeito hover no botão */
         .btn:hover {
-            background-color: #45a049; /* Cor do botão ao passar o mouse */
+            background-color: rgba(243, 71, 50, 0.93);
         }
 
+        /* Área de logout */
+        .sair {
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+            text-decoration: none;
+        }
+
+        /* Links de logout */
+        .sair a {
+            padding: 1vw;
+            background-color: #ffffff;
+            border-radius: 20vw;
+            margin-right: 2rem;
+            color: var(--vermelho);
+            transition: .3s;
+            border: 2px solid var(--vermelho);
+        }
+
+        /* Efeito hover nos links de logout */
+        .sair a:hover {
+            background-color: var(--vermelho);
+            color: #ffffff;
+        }
+
+        /* Remove bordas ao gerar PDF */
+        .remove-borders {
+            border: none !important;
+        }
+
+        /* Esconde o botão no PDF */
+        .hide-in-pdf {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <a href="#" class="logo">
-            <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
-        </a>
-        <div class="logout">
-            <a onclick="window.history.back()">Voltar</a>
+<header>
+    <!-- Logo com link para a página de menu -->
+    <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
+   
+    <div class="logout">
+<a onclick="window.history.back()">Voltar</a>
+    
+    
+<a href="{% url 'menuADM' %}">Inicio</a>
+</div>
+    
+    <div class="sair">
+            <a href="{% url 'telaSuspensa' %}">Logout</a>
         </div>
-    </header>
 
-    <div class="container">
-
-        <div class="relatorio">
-            <div class="titulo">
-                <h3>Relatório de Interesses</h3>
-            </div>
-
-            {% for curso in cursos %}
+</header>
+<div class="container">
+    <div class="relatorio">
+        <!-- Título do relatório -->
+        <div class="titulo">
+            <h3>Relatório de Interesses</h3>
+        </div>
+       
+        <!-- Listagem de cursos com pelo menos 1 interesse -->
+        {% for curso in cursos %}
+            {% if curso.num_cliques_total|default:0 > 0 %}
                 <div class="curso-interesse">
                     <h4>Curso: {{ curso.nome }}</h4>
-                    <p>Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}</p>
+                    <p>Quantidade de interesses: {{ curso.num_cliques_total }}</p>
                 </div>
-            {% empty %}
-                <p>Nenhum interesse registrado até o momento.</p>
-            {% endfor %}
-
-            <br><br>
-            <div class="chart-container">
-                <canvas id="graficoInteresses"></canvas>
-                <div class="legend" id="legend"></div>
-            </div>
-
-            <!-- Div para o botão agora está aqui, logo abaixo do gráfico -->
-            <div class="button-container">
-                <div class="btn" style="background-color: #E9311AFF">
-                    <a href="#" onclick="setTimeout(generatePDF, 500)" style="color: white; text-decoration: none;">Baixar PDF</a>
-                </div>
-            </div>
+            {% endif %}
+        {% empty %}
+            <p>Nenhum interesse registrado até o momento.</p>
+        {% endfor %}
+       
+        <!-- Gráfico e legenda -->
+        <div class="chart-container">
+            <canvas id="graficoInteresses"></canvas>
+            <div class="legend" id="legend"></div>
+        </div>
+       
+        <!-- Botão para baixar o PDF -->
+        <div class="button-container">
+            <button class="btn" id="download-pdf-btn">Baixar PDF</button>
         </div>
     </div>
-
-    <footer>
-        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
-    </footer>
-
-    <script>
-    Chart.register(ChartDataLabels);
-
-    const labels = {{ labels|safe }};
-    const data = {{ data|safe }};
-
-    // Defina suas cores aqui
-    const backgroundColors = [
-        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40', '#FF5733'
+</div>
+<script>
+    // Define os labels para os cursos com interesse maior que 0
+    const labels = [
+        {% for curso in cursos %}
+            {% if curso.num_cliques_total|default:0 > 0 %}
+                "{{ curso.nome }}",
+            {% endif %}
+        {% endfor %}
+    ];
+   
+    // Define os dados de cliques para os cursos com interesse maior que 0
+    const data = [
+        {% for curso in cursos %}
+            {% if curso.num_cliques_total|default:0 > 0 %}
+                {{ curso.num_cliques_total }},
+            {% endif %}
+        {% endfor %}
     ];
 
-    const ctx = document.getElementById('graficoInteresses').getContext('2d');
-    const graficoInteresses = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Número de Interesses',
-                data: data,
-                backgroundColor: backgroundColors,
-                borderColor: '#fff',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, // Desativa a proporção para customizar a altura
-            plugins: {
-                legend: {
-                    display: false
-                },
-                datalabels: {
-                    display: false
+    // Função para gerar cores para os gráficos
+    function generateColors(count) {
+        const colors = [];
+        for (let i = 0; i < count; i++) {
+            const hue = (i * 360 / count) % 360;
+            colors.push(`hsl(${hue}, 70%, 60%)`);
+        }
+        return colors;
+    }
+
+    // Cores do gráfico
+    const backgroundColors = generateColors(labels.length);
+
+    // Cria o gráfico de pizza
+    function createChart() {
+        const ctx = document.getElementById('graficoInteresses').getContext('2d');
+        return new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: backgroundColors,
+                    borderColor: 'rgba(0, 0, 0, 0.1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    datalabels: {
+                        color: '#fff',
+                        formatter: (value, ctx) => {
+                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                            return ((value / total) * 100).toFixed(2) + '%';
+                        }
+                    },
+                    legend: {
+                        display: false
+                    }
                 }
             }
-        }
-    });
+        });
+    }
 
-    // Define a altura diretamente via CSS
-    document.getElementById('graficoInteresses').style.height = '120px';
+    // Gera o gráfico
+    let myChart = createChart();
 
+    // Gera a legenda personalizada
     function generateLegend() {
         const legendContainer = document.getElementById('legend');
         legendContainer.innerHTML = '';
-
         labels.forEach((label, index) => {
             const legendItem = document.createElement('div');
             legendItem.className = 'legend-item';
-
             const colorBox = document.createElement('div');
             colorBox.className = 'legend-color-box';
             colorBox.style.backgroundColor = backgroundColors[index];
-
             const legendText = document.createElement('span');
-            // Adiciona a porcentagem ao lado do nome do curso na legenda
-            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
+            const totalClicks = data.reduce((a, b) => a + b, 0);
+            const percentage = totalClicks > 0 ? ((data[index] / totalClicks) * 100).toFixed(2) : 0;
             legendText.textContent = `${label} (${percentage}%)`;
-
             legendItem.appendChild(colorBox);
             legendItem.appendChild(legendText);
             legendContainer.appendChild(legendItem);
         });
     }
 
+    // Gera a legenda inicial
     generateLegend();
 
-    function generatePDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        // Adiciona título ao PDF
-        doc.setFontSize(20);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Relatório Geral', 85, 20);
-
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'normal');
-
-        let yPosition = 40;
-
-        // Adiciona informações dos cursos
-        {% for curso in cursos %}
-            doc.text('Curso: {{ curso.nome }}', 10, yPosition);
-            yPosition += 10;
-            doc.text('Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}', 10, yPosition);
-            yPosition += 10;
-        {% endfor %}
-
-        // Adiciona o gráfico ao PDF
-        const canvas = document.getElementById('graficoInteresses');
-        const imgData = canvas.toDataURL('image/png');
-
-        const imgWidth = 80;
-        const imgHeight = (canvas.height / canvas.width) * imgWidth;
-
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const xPos = (pageWidth - imgWidth) / 2;
-        doc.addImage(imgData, 'PNG', xPos, yPosition + 10, imgWidth, imgHeight);
-
-        // Atualiza a posição vertical após o gráfico
-        yPosition += imgHeight + 15;
-
-        // Adiciona a legenda ao PDF
-        labels.forEach((label, index) => {
-            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-            const yPosLegend = yPosition + (index * 10);
-
-            doc.setFillColor(backgroundColors[index]);
-            doc.rect(10, yPosLegend, 10, 10, 'F'); // Cor da caixa
-            doc.setFont('helvetica', 'normal');
-            doc.text(`${label} (${percentage}%)`, 25, yPosLegend + 8); // Texto da legenda
+    // Configura o botão de download do PDF
+    document.getElementById('download-pdf-btn').addEventListener('click', () => {
+        const element = document.querySelector('.relatorio');
+        element.classList.add('remove-borders');
+        document.getElementById('download-pdf-btn').classList.add('hide-in-pdf');
+        const options = {
+            margin: 10,
+            filename: 'relatorio_interesses.pdf',
+            image: { type: 'png', quality: 1 },
+            html2canvas: { dpi: 192, letterRendering: true },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        html2pdf().from(element).set(options).save().then(() => {
+            element.classList.remove('remove-borders');
+            document.getElementById('download-pdf-btn').classList.remove('hide-in-pdf');
         });
-
-        doc.save('relatorio.pdf');
-    }
-    </script>
-
+    });
+</script>
 </body>
 </html>

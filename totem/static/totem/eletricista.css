@@ -17,7 +17,6 @@
     --preto: #282828;
 }
 
-
 footer img {
     width: 15vw;
     padding: .8vw;
@@ -326,7 +325,7 @@ header {
 }
 
 body {
-        background-image: url("images/background.png");
+    background-image: url("images/background.png");
     font-family: sans-serif;
     display: flex;
     flex-direction: column;
@@ -345,11 +344,9 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     width: 80%;
     max-width: 800px;
-
 }
 
 .image-container img{
-
     width: 80vw;
     border-radius: 1vw;
     display: block;
@@ -421,6 +418,8 @@ body {
     gap: 20px;
     justify-content: space-evenly;
     padding: 20px;
+    background-color: #F9F6EF;
+
 }
 
 .card {
@@ -446,7 +445,10 @@ body {
 }
 h2{
     display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    text-align: center;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.h2top{
+    margin-top: 5vw;
 }

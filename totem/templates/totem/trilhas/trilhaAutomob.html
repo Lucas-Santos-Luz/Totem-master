@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Trilha de cursos Automobilística</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/trilhaAuto.css' %}">
@@ -14,10 +17,10 @@
         <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
 
         <!-- Link para logout -->
-        <div class="logout">
+       <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Inicio</a>
         </div>
-
 <nav class="menu">
   <input
     id="menu-open"
@@ -51,7 +54,18 @@
     </div>
      <br><br>
      <div class="container">
-    <div class="container1">
+
+         <div class="aluno">
+                 <div>
+                <img src="{% static 'totem/images/unnamed.png' %}">
+                <p>Aluno</p>
+                </div>
+           </div>
+
+         <div class="container1">
+
+             <hr class="hrcone">
+             <hr class="hrcone10 esconder ">
         <div>
         <img src="{% static 'totem/images/suspensao.jpg' %}">
         <p>Mecânico de Suspensão direção e Freios</p>
@@ -69,9 +83,10 @@
         <img src="{% static 'totem/images/eletricistaautomotivo.jpg' %}">
         <p>Eletricista Automotivo</p>
         </div>
+
     </div>
 
-    <div class="container2">
+    <div class="container2 esconder ">
         <div>
         <img src="{% static 'totem/images/ingecaodiesel.jpg' %}">
         <p>Mecânico de Injeção Eletrônica Diesel   </p>
@@ -86,9 +101,37 @@
         </div>
     </div>
      </div>
-
+<div class="botoes">
+     <button id="mostrar-mais" onclick="mostrarOutrosCursos()">Mostrar mais</button>
+    <button id="mostrar-menos" style="display: none;" onclick="esconderOutrosCursos()">Mostrar menos</button>
+</div>
 <footer>
     <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
 </footer>
+
+    <script>
+function mostrarOutrosCursos() {
+  const outrosCursos = document.querySelectorAll('.esconder');
+  outrosCursos.forEach((curso) => {
+    curso.classList.remove('esconder');
+  });
+  document.getElementById('mostrar-mais').style.display = 'none';
+  document.getElementById('mostrar-menos').style.display = 'block';
+}
+
+function esconderOutrosCursos() {
+  const outrosCursos = document.querySelectorAll('.container2, .hrcone4, .hrcone5, .hrcone6, .hrcone7, .hrcone8, .hrcone9, .hrcone10');
+  outrosCursos.forEach((curso) => {
+    curso.classList.add('esconder');
+  });
+  document.getElementById('mostrar-menos').style.display = 'none';
+  document.getElementById('mostrar-mais').style.display = 'block';
+}
+
+// Adicione essa linha para esconder os elementos inicialmente
+document.addEventListener('DOMContentLoaded', esconderOutrosCursos);
+    </script>
+
+
 </body>
 </html>

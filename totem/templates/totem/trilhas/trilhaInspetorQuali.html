@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Modelo</title>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>Inspetor de Qualidade</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/inspetorQuali.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -12,6 +15,7 @@
         <a href="#" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo"></a>
         <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Inicio</a>
         </div>
         <nav class="menu">
             <input id="menu-open" name="menu-open" class="menu-open" type="checkbox" />
@@ -29,12 +33,42 @@
         </nav>
     </header>
 
+
+
+
+
+
+
+
     <div class="container">
         <div class="image-container">
             <img src="{% static 'totem/images/inspetorQuali.png' %}" alt="Smart.EDUC Logo">
         </div>
 
         <div class="grid">
+            <div class="sessao7">
+             <div class="card" data-title="Ajustador Mecânico">
+                    <img src="{% static 'totem/images/unnamed.png' %}" alt="Ajustador Mecânico 100H">
+                    <div class="card-content">
+                        <h2 class="card-title">Aluno </h2>
+                    </div>
+             </div>
+                 <hr class="hrcone">
+             <hr class="hrcone1">
+             <hr class="hrcone2">
+             <hr class="hrcone3">
+                <hr class="hrcone4  ">
+             <hr class="hrcone5  ">
+             <hr class="hrcone6  ">
+             <hr class="hrcone7  ">
+             <hr class="hrcone8  ">
+             <hr class="hrcone9  ">
+             <hr class="hrcone10  ">
+             <hr class="hrcone11  ">
+             <hr class="hrcone12  ">
+             <hr class="hrcone13  ">
+             <hr class="hrcone14  ">
+            </div>
             <div class="sessao1">
                 <div class="card" data-title="Ajustador Mecânico">
                     <img src="{% static 'totem/images/torneiromecanico.png' %}" alt="Ajustador Mecânico 100H">
@@ -57,12 +91,7 @@
                     </div>
                 </div>
 
-                <div class="omega" data-title="Solidworks CAD 2D / 3D Inventor">
-                    <img src="static/totem/images/solidworks.png" alt="Solidworks CAD 2D / 3D Inventor">
-                    <div class="card-content">
-                        <h2 class="card-title">Solidworks CAD 2D / 3D Inventor</h2>
-                    </div>
-                </div>
+
             </div>
 
             <div class="banner">
@@ -95,12 +124,17 @@
             <div class="banner2">
                 <img src="static/totem/images/programacaoEtralala.png" alt="Smart.EDUC Logo">
             </div>
-
+                <div class="omega" data-title="Solidworks CAD 2D / 3D Inventor">
+                    <img src="static/totem/images/solidworks.png" alt="Solidworks CAD 2D / 3D Inventor">
+                    <div class="card-content">
+                        <h2 class="card-title">Solidworks CAD 2D / 3D Inventor</h2>
+                    </div>
+                </div>
             <div class="banner3">
                 <img src="static/totem/images/usinagemCNC.png" alt="Smart.EDUC Logo">
             </div>
 
-            <div class="success-message" style="display: block;">
+            <div class="success-message" style="display: flex;/* margin-left: 6vw; */width: 100%;justify-content: center;">
                 <img src="static/totem/images/sucessemensage.png" alt="Medal of Honor">
             </div>
         </div>
@@ -109,21 +143,6 @@
 
     <script>
         const cards = document.querySelectorAll('.card');
-        const successMessage = document.querySelector('.success-message');
-
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                cards.forEach(c => c.style.transform = 'scale(1.1)');
-
-                setTimeout(() => {
-                    cards.forEach(c => c.style.transform = 'scale(1)');
-                }, 200);
-            });
-        });
-
-        setTimeout(() => {
-            successMessage.style.display = 'block';
-        }, 5000);
     </script>
 
 <footer>
@@ -131,3 +150,4 @@
 </footer>
 </body>
 </html>
+

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Trilha de TI</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/trilhaTI.css' %}">
@@ -12,8 +15,9 @@
         <a href="{% url 'telaMenu' %}" class="logo">
             <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
         </a>
-        <div class="logout">
+       <div class="logout">
             <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Inicio</a>
         </div>
 
         <nav class="menu">

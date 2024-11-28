@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Login adm</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'totem/loginADM.css' %}">
@@ -14,10 +17,17 @@
         </a>
 
         <div class="logout">
-            <a onclick="window.history.back()">Voltar</a>
+<a onclick="window.history.back()">Voltar</a>
+    
+    
+<a href="{% url 'menuADM' %}">Inicio</a>
+</div>
+    
+    <div class="sair">
+            <a href="{% url 'telaSuspensa' %}">Logout</a>
         </div>
-    </header>
 
+    </header>
     <div class="login">
 
     <div class="loginForm">

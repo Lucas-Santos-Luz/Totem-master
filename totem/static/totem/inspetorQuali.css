@@ -314,6 +314,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    background-image: url("images/background.png");
 }
 
 .container {
@@ -354,11 +355,11 @@ body {
 }
 
 .grid {
-    gap: 20px;
+    gap: 70px;
     margin-bottom: 20px;
     flex-direction: column;
     display: flex;
-
+    align-items: center;
 }
 
 .card {
@@ -403,6 +404,7 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-left: -3vw;
 }
 
 .sessao {
@@ -413,14 +415,14 @@ body {
 
 
 
-.sessao1, .sessao2, .sessao3, .sessao4 {
+.sessao1, .sessao2, .sessao3, .sessao4, .sessao7 {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    gap: 20px;
-
+    gap: 5vw;
     padding: 20px;
     border-radius: 8px;
+    justify-content: center;
     width: 100%;
 }
 
@@ -482,8 +484,8 @@ body {
 .omega {
     flex: 1;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    margin-left: -3vw;
     align-items: center;
 }
 
@@ -507,4 +509,171 @@ footer {
     margin-top: 3vw;
     position: relative;
     bottom: 0;
+}
+
+
+
+.sessao7{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.hrcone{
+      position: absolute;
+      top: 85%;
+      left: 52.5%;
+      border: 1px solid black;
+      width: 15vw;
+      height: 0vw;
+      transform: rotate(-130deg);
+}
+
+.hrcone1{
+        position: absolute;
+      top: 85%;
+      left: 30%;
+      border: 1px solid black;
+      width: 15vw;
+      height: 0vw;
+      transform: rotate(130deg);
+}
+
+.hrcone2{
+          position: absolute;
+      top: 89%;
+      left: 45%;
+      border: 1px solid black;
+      width: 8vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone3{
+     position: absolute;
+      top: 134%;
+      left: 27%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+
+.hrcone4{
+position: absolute;
+      top: 134%;
+      left: 47%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone5{
+position: absolute;
+      top: 134%;
+      left: 65%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone6{
+      position: absolute;
+      top: 162%;
+      left: 27%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone7{
+position: absolute;
+      top: 162%;
+      left: 47%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+
+}
+
+
+.hrcone8{
+  position: absolute;
+      top: 162%;
+      left: 65%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone9{
+      position: absolute;
+      top: 206%;
+      left: 27%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone10{
+position: absolute;
+      top: 206%;
+      left: 47%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+
+}
+
+
+.hrcone11{
+  position: absolute;
+      top: 206%;
+      left: 65%;
+      border: 1px solid black;
+      width: 5vw;
+      height: 0vw;
+      transform: rotate(90deg);
+}
+
+.hrcone12{
+position: absolute;
+      top: 239%;
+      left: 47%;
+      border: 1px solid black;
+      width: 3vw;
+      height: 0vw;
+      transform: rotate(90deg);
+
+}
+
+.hrcone13{
+position: absolute;
+      top: 270%;
+      left: 47%;
+      border: 1px solid black;
+      width: 3vw;
+      height: 0vw;
+      transform: rotate(90deg);
+
+}
+
+.hrcone14{
+position: absolute;
+      top: 304%;
+      left: 46%;
+      border: 1px solid black;
+      width: 4vw;
+      height: 0vw;
+      transform: rotate(90deg);
+
 }

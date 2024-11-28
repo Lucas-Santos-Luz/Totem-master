@@ -1,7 +1,10 @@
 <!DOCTYPE html> <!-- Declaração do tipo de documento -->
 <html lang="en"> <!-- Início do elemento HTML com especificação do idioma -->
 <head>
-    <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8 -->
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"><!-- Define a codificação de caracteres para UTF-8 -->
     <title>Calendário</title> <!-- Título da página exibido na aba do navegador -->
     {% load static %} <!-- Carrega arquivos estáticos do Django -->
  <!--    <link rel="stylesheet" type="text/css" href="{% static 'totem/modelo.css' %}"> Importa a folha de estilo modelo -->
@@ -37,8 +40,8 @@
     <header>
         <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a> <!-- Logo da aplicação -->
         <div class="logout">
-            <a onclick="window.history.back()">Voltar</a> <!-- Link para voltar à página anterior -->
-            <a href="{% url 'telaMenu' %}">Home</a>
+            <a onclick="window.history.back()">Voltar</a>
+            <a href="{% url 'telaMenu' %}">Inicio</a>
         </div>
         <nav class="menu">
             <input id="menu-open" name="menu-open" class="menu-open" href="#" type="checkbox"/> <!-- Checkbox para menu responsivo -->
