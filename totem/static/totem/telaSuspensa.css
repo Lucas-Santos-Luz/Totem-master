@@ -41,9 +41,6 @@ body{
     gap: 2.5vw;
 }
 
-.logo img {
-   margin-top: 8vw;
-}
 
 .logo h1 {
     color: #ffffff;
@@ -55,6 +52,7 @@ body{
     font-size: 36px;
     font-style: italic;
     font-weight: 300;
+    margin-bottom: 2vw;
 }
 
 body a {
