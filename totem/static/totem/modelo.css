@@ -1300,3 +1300,32 @@ footer img {
     color: #000;
 }
 
+/* Para tablets em modo retrato */
+@media screen and (min-width: 800px) and (max-width: 1340px) and (orientation: portrait) {
+
+    .card2 {
+  display: flex;
+  align-items: center;
+  width: 60%;
+  background: white;
+    border: solid 1px var(--vermelho);
+  padding: 4vw;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-height: 100%;
+    margin-bottom: 3vw;
+}
+
+
+    .card-image {
+  margin: 2vw;
+  width: 150px;
+  height: 100px;
+  border-radius: 6px;
+  flex-shrink: 0;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+}

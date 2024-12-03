@@ -577,3 +577,18 @@ footer {
         transform: translateY(-6px);
     }
 }
+
+/* Para tablets em modo retrato */
+@media screen and (min-width: 800px) and (max-width: 1340px) and (orientation: portrait) {
+
+    .button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 3vw;
+    margin-top: 7vw;
+}
+
+}
