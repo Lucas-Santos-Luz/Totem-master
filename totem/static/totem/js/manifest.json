@@ -1,0 +1,38 @@
+{
+    "name": "Smart.Educ",
+    "short_name": "Smart.Educ",
+    "start_url": "/",
+    "display": "fullscreen",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+        {
+            "src": "/static/totem/images/iconTotem.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/totem/images/iconTotem2.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/totem/images/iconTotem3.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/static/totem/images/ScreenShot.png",
+            "sizes": "640x480",
+            "type": "image/png",
+            "form_factor": "wide"
+        },
+        {
+            "src": "/static/totem/images/ScreenShot2.png",
+            "sizes": "480x640",
+            "type": "image/png"
+        }
+    ]
+}
