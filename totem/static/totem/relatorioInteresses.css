@@ -555,3 +555,41 @@ header {
     display: flex;
     justify-content: center;
 }
+
+
+
+.sair {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    text-decoration: none;
+}
+
+.sair a {
+    padding: 1vw;
+    background-color: #ffffff;
+    border-radius: 20vw;
+    margin-right: 2rem;
+    color: var(--vermelho);
+    transition: .3s;
+   border: 2px solid var(--vermelho);
+}
+
+.sair a:hover {
+    background-color: var(--vermelho);
+    color: #ffffff;
+}
+
+.lixeira {
+    width: 100%;
+    display: flex;
+
+    justify-content: flex-end;
+
+}
+
+.lixeira a {
+    color: var(--vermelho);
+    text-decoration: none;
+    font-size: 25px;
+}

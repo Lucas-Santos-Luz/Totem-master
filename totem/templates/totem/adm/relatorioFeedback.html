@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>Relatório de Feedbacks</title>
     {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />
     <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -102,6 +103,9 @@
                         <h4>Nome: {{ feedback.nome }}</h4>
                         <p>Feedback: {{ feedback.feedback }}</p>
                         <p>Avaliação: {{ feedback.rating }}</p>
+                        <div class="lixeira">
+                        <a href="{% url 'excluir_feedback' feedback.id %}"><span class="material-symbols-outlined">delete</span></a>
+                        </div>
                         <hr>
                     </div>
                     </div>

@@ -251,3 +251,8 @@ def validar_login(request):
     return render(request, 'totem/adm/loginADM.html')
 
 
+def excluir_feedback(request, id):
+    feedback = get_object_or_404(Feedback, id=id)
+    feedback.delete()
+    return redirect('relatorioFeedback')  # Substitua pelo nome correto
+
