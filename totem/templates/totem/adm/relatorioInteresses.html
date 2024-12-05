@@ -1,87 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta charset="UTF-8">
     <title>Relatório de Interesses</title>
-<<<<<<< HEAD
     {% load static %} <!-- Carrega as tags para trabalhar com arquivos estáticos no Django -->
    
     <!-- Link para o arquivo CSS personalizado -->
     <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
    
     <!-- Bibliotecas JavaScript para gráficos e geração de PDF -->
-=======
-    <!-- Carregamento do arquivo CSS para o estilo da página -->
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'totem/relatorioInteresses.css' %}">
-    <!-- Carregamento da biblioteca jsPDF para gerar o PDF -->
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <!-- Carregamento do Chart.js para gerar gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Carregamento do plugin de rótulos para Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
    
     <style>
-<<<<<<< HEAD
         /* Estilos gerais da página */
-=======
-        /* Estilo geral da página */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
         }
 
-<<<<<<< HEAD
         /* Contêiner principal */
-=======
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .container {
             max-width: 1000px;
             margin: 0 auto;
             padding: 50px;
         }
 
-<<<<<<< HEAD
         /* Área do relatório */
-=======
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .relatorio {
             padding-left: 30px;
         }
 
-<<<<<<< HEAD
         /* Cada curso listado */
         .curso-interesse {
             margin-bottom: 10px; /* Espaçamento entre os itens */
         }
 
         /* Canvas do gráfico */
-=======
-        /* Estilo para as informações de cada curso */
-        .curso-interesse {
-            margin-bottom: 10px;
-        }
-
-        /* Estilo do gráfico */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         #graficoInteresses {
             max-width: 250px;
             height: 200px;
             margin: 0;
         }
 
-<<<<<<< HEAD
         /* Contêiner do gráfico e legenda */
-=======
-        /* Container que envolve o gráfico e a legenda */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .chart-container {
             display: flex;
             align-items: center;
@@ -90,16 +55,12 @@
             margin-top: 5px; /* Reduz o espaço acima do gráfico */
         }
 
-<<<<<<< HEAD
         /* Último item da lista de cursos */
         .curso-interesse:last-of-type {
             margin-bottom: 5px; /* Reduz o espaço entre o último curso e o gráfico */
         }
 
         /* Contêiner para a legenda */
-=======
-        /* Estilo da legenda que fica à direita do gráfico */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .legend {
             padding-left: 30px;
             margin-bottom: 0;
@@ -112,32 +73,21 @@
             margin-bottom: 5px;
         }
 
-<<<<<<< HEAD
         /* Cor na legenda */
-=======
-        /* Cor de fundo da caixa da legenda */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .legend-color-box {
             width: 15px;
             height: 15px;
             margin-right: 5px;
         }
 
-<<<<<<< HEAD
         /* Botão para baixar o PDF */
-=======
-        /* Estilo para o botão de gerar PDF */
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .button-container {
             margin-top: 20px;
             text-align: center;
             margin-bottom: 20px;
         }
 
-<<<<<<< HEAD
         /* Estilo do botão */
-=======
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         .btn {
             display: inline-block;
             padding: 10px 20px;
@@ -151,15 +101,9 @@
             margin-top: 10px;
         }
 
-<<<<<<< HEAD
         /* Efeito hover no botão */
         .btn:hover {
             background-color: rgba(243, 71, 50, 0.93);
-=======
-        /* Efeito de hover para o botão */
-        .btn:hover {
-            background-color: #45a049;
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         }
 
         /* Área de logout */
@@ -199,34 +143,20 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
 <header>
     <!-- Logo com link para a página de menu -->
     <a href="{% url 'telaMenu' %}" class="logo"><img src="{% static 'totem/images/logoSmartEDUC.png' %}"></a>
    
+    <!-- Links para voltar e home -->
     <div class="logout">
-<a onclick="window.history.back()">Voltar</a>
-    
-    
-<a href="{% url 'menuADM' %}">Inicio</a>
-</div>
-    
+        <a onclick="window.history.back()">Voltar</a>
+        <a href="{% url 'menuADM' %}">Home</a>
+    </div>
+   
+    <!-- Link para logout -->
     <div class="sair">
-            <a href="{% url 'telaSuspensa' %}">Logout</a>
-=======
-    <!-- Cabeçalho da página -->
-    <header>
-        <!-- Logo da página -->
-        <a href="#" class="logo">
-            <img src="{% static 'totem/images/logoSmartEDUC.png' %}" alt="Logo SmartEDUC">
-        </a>
-        <!-- Link para voltar à página anterior -->
-        <div class="logout">
-            <a onclick="window.history.back()">Voltar</a>
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
-        </div>
-
-<<<<<<< HEAD
+        <a href="{% url 'telaSuspensa' %}">Logout</a>
+    </div>
 </header>
 <div class="container">
     <div class="relatorio">
@@ -238,22 +168,10 @@
         <!-- Listagem de cursos com pelo menos 1 interesse -->
         {% for curso in cursos %}
             {% if curso.num_cliques_total|default:0 > 0 %}
-=======
-    <div class="container">
-        <!-- Seção principal do relatório -->
-        <div class="relatorio">
-            <div class="titulo">
-                <h3>Relatório de Interesses</h3>
-            </div>
-
-            <!-- Laço que exibe os cursos e o número de interesses -->
-            {% for curso in cursos %}
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
                 <div class="curso-interesse">
                     <h4>Curso: {{ curso.nome }}</h4>
                     <p>Quantidade de interesses: {{ curso.num_cliques_total }}</p>
                 </div>
-<<<<<<< HEAD
             {% endif %}
         {% empty %}
             <p>Nenhum interesse registrado até o momento.</p>
@@ -330,77 +248,11 @@
                     legend: {
                         display: false
                     }
-=======
-            {% empty %}
-                <!-- Caso não haja cursos, mostra uma mensagem -->
-                <p>Nenhum interesse registrado até o momento.</p>
-            {% endfor %}
-
-            <br><br>
-            <!-- Container para o gráfico e a legenda -->
-            <div class="chart-container">
-                <canvas id="graficoInteresses"></canvas>
-                <div class="legend" id="legend"></div>
-            </div>
-
-            <!-- Botão para gerar e baixar o PDF -->
-            <div class="button-container">
-                <div class="btn">
-                    <a href="#" onclick="generatePDF()" style="color: white; text-decoration: none;">Baixar PDF</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <!-- Logo de Powered by Smart.EDUC -->
-        <img src="{% static 'totem/images/PoweredbySmart.EDUC.png' %}" alt="">
-    </footer>
-
-    <script>
-    // Registro do plugin de rótulos para o Chart.js
-    Chart.register(ChartDataLabels);
-
-    // Dados do gráfico (labels e data são passados do servidor para o frontend)
-    const labels = {{ labels|safe }};
-    const data = {{ data|safe }};
-
-    // Gerar cores infinitas para o gráfico com base no índice de cada fatia
-    const backgroundColors = data.map((_, index) => {
-        const hue = (index * 137.5) % 360; // Cálculo para gerar cores diferentes para cada fatia
-        return `hsl(${hue}, 70%, 60%)`;  // Usando a fórmula HSL para criar uma cor única para cada fatia
-    });
-
-    // Inicialização do gráfico pie (gráfico de pizza)
-    const ctx = document.getElementById('graficoInteresses').getContext('2d');
-    const graficoInteresses = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: labels,  // Rótulos das fatias (nomes dos cursos)
-            datasets: [{
-                label: 'Número de Interesses',
-                data: data,  // Dados (quantidade de interesses para cada curso)
-                backgroundColor: backgroundColors,  // Cores geradas dinamicamente
-                borderColor: '#fff',  // Cor da borda (branca)
-                borderWidth: 2  // Largura da borda
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,  // Permite ajustar o tamanho do gráfico
-            plugins: {
-                legend: {
-                    display: false  // Não exibe a legenda padrão do gráfico
-                },
-                datalabels: {
-                    display: false  // Não exibe os rótulos dentro das fatias
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
                 }
             }
         });
     }
 
-<<<<<<< HEAD
     // Gera o gráfico
     let myChart = createChart();
 
@@ -408,41 +260,22 @@
     function generateLegend() {
         const legendContainer = document.getElementById('legend');
         legendContainer.innerHTML = '';
-=======
-    // Função para gerar a legenda personalizada ao lado do gráfico
-    function generateLegend() {
-        const legendContainer = document.getElementById('legend');
-        legendContainer.innerHTML = '';  // Limpa qualquer conteúdo pré-existente na legenda
-
-        // Gera os itens da legenda para cada fatia do gráfico
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
         labels.forEach((label, index) => {
             const legendItem = document.createElement('div');
             legendItem.className = 'legend-item';
             const colorBox = document.createElement('div');
             colorBox.className = 'legend-color-box';
-<<<<<<< HEAD
             colorBox.style.backgroundColor = backgroundColors[index];
             const legendText = document.createElement('span');
             const totalClicks = data.reduce((a, b) => a + b, 0);
             const percentage = totalClicks > 0 ? ((data[index] / totalClicks) * 100).toFixed(2) : 0;
             legendText.textContent = `${label} (${percentage}%)`;
-=======
-            colorBox.style.backgroundColor = backgroundColors[index];  // Cor da caixa da legenda
-
-            const legendText = document.createElement('span');
-            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);  // Calcula a porcentagem
-            legendText.textContent = `${label} (${percentage}%)`;  // Exibe o nome do curso e a porcentagem
-
-            // Adiciona o item à legenda
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
             legendItem.appendChild(colorBox);
             legendItem.appendChild(legendText);
             legendContainer.appendChild(legendItem);
         });
     }
 
-<<<<<<< HEAD
     // Gera a legenda inicial
     generateLegend();
 
@@ -464,61 +297,5 @@
         });
     });
 </script>
-=======
-    generateLegend();  // Chama a função para gerar a legenda
-
-    // Função para gerar o PDF
-    function generatePDF() {
-        const { jsPDF } = window.jspdf;  // Carrega a biblioteca jsPDF
-        const doc = new jsPDF();  // Cria um novo documento PDF
-
-        // Define o título do PDF
-        doc.setFontSize(20);
-        doc.setFont('helvetica', 'bold');
-        doc.text('Relatório Geral', 85, 20);  // Posiciona o título no PDF
-
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'normal');
-
-        let yPosition = 40;  // Posição inicial para o conteúdo
-
-        // Adiciona as informações dos cursos ao PDF
-        {% for curso in cursos %}
-            doc.text('Curso: {{ curso.nome }}', 10, yPosition);  // Nome do curso
-            yPosition += 10;
-            doc.text('Quantidade de interesses: {{ curso.num_cliques_total|default:0 }}', 10, yPosition);  // Quantidade de interesses
-            yPosition += 10;
-        {% endfor %}
-
-        // Adiciona o gráfico ao PDF
-        const canvas = document.getElementById('graficoInteresses');
-        const imgData = canvas.toDataURL('image/png');  // Converte o gráfico para imagem
-
-        const imgWidth = 80;
-        const imgHeight = (canvas.height / canvas.width) * imgWidth;  // Mantém a proporção do gráfico
-
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const xPos = (pageWidth - imgWidth) / 2;  // Centraliza a imagem no PDF
-        doc.addImage(imgData, 'PNG', xPos, yPosition + 10, imgWidth, imgHeight);  // Adiciona a imagem do gráfico
-
-        yPosition += imgHeight + 15;  // Atualiza a posição após o gráfico
-
-        // Adiciona a legenda ao PDF
-        labels.forEach((label, index) => {
-            const percentage = ((data[index] / data.reduce((a, b) => a + b, 0)) * 100).toFixed(2);
-            const yPosLegend = yPosition + (index * 10);  // Posição para cada item da legenda
-
-            doc.setFillColor(backgroundColors[index]);  // Cor da caixa de legenda
-            doc.rect(10, yPosLegend, 10, 10, 'F');  // Adiciona a caixa colorida
-
-            doc.setFont('helvetica', 'normal');
-            doc.text(`${label} (${percentage}%)`, 25, yPosLegend + 8);  // Adiciona o texto da legenda
-        });
-
-        doc.save('relatorio.pdf');  // Salva e baixa o PDF
-    }
-    </script>
-
->>>>>>> 81a702d1d6c1c58802dec246e31b0a7c07c86fed
 </body>
 </html>
